@@ -16,8 +16,10 @@ $(SKELATOOL64):
 	skelatool64/setup_dependencies.sh
 	@$(MAKE) -C skelatool64
 
+# Use tag name if a tag exists, otherwise use commit hash
+GAME_VERSION		:=  $(shell git describe --tags --exact-match HEAD 2> /dev/null || git rev-parse --short HEAD)
 OPTIMIZER		:= -Os
-LCDEFS			:= -DDEBUG -g -Isrc/ -I/usr/include/n64/nustd -Werror -Wall
+LCDEFS			:= -DDEBUG -DGAME_VERSION=\"$(GAME_VERSION)\" -g -Isrc/ -I/usr/include/n64/nustd -Werror -Wall
 N64LIB			:= -lultra_rom -lnustd
 
 ifeq ($(PORTAL64_WITH_DEBUGGER),1)

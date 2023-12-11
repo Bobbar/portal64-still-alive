@@ -63,11 +63,14 @@ void landingMenuInitText(struct LandingMenu* landingMenu) {
         landingMenu->optionText[i] = menuBuildPrerenderedText(&gDejaVuSansFont, translationsGet(landingMenu->options[i].messageId), 30, y, SCREEN_WD);
         y += stride;
     }
+
+    landingMenu->versionText = menuBuildPrerenderedText(&gDejaVuSansFont, GAME_VERSION, SCREEN_WD - 70, SCREEN_HT - 35, SCREEN_WD);
 }
 
 void landingMenuInit(struct LandingMenu* landingMenu, struct LandingMenuOption* options, int optionCount, int darkenBackground) {    
     landingMenu->optionText = malloc(sizeof(struct PrerenderedText*) * optionCount);
     landingMenu->options = options;
+    landingMenu->versionText = NULL;
     landingMenu->selectedItem = 0;
     landingMenu->optionCount = optionCount;
     landingMenu->darkenBackground = darkenBackground;
@@ -78,6 +81,8 @@ void landingMenuRebuildText(struct LandingMenu* landingMenu) {
     for (int i = 0; i < landingMenu->optionCount; ++i) {
         prerenderedTextFree(landingMenu->optionText[i]);
     }
+    prerenderedTextFree(landingMenu->versionText);
+
     landingMenuInitText(landingMenu);
 }
 
@@ -139,6 +144,8 @@ void landingMenuRender(struct LandingMenu* landingMenu, struct RenderState* rend
     for (int i = 0; i < landingMenu->optionCount; ++i) {
         prerenderedBatchAdd(batch, landingMenu->optionText[i], landingMenu->selectedItem == i ? &gSelectionGray: &gColorWhite);
     }
+    prerenderedBatchAdd(batch, landingMenu->versionText, &gHalfTransparentWhite);
+
     renderState->dl = prerenderedBatchFinish(batch, gDejaVuSansImages, renderState->dl);
     gSPDisplayList(renderState->dl++, ui_material_revert_list[DEJAVU_SANS_0_INDEX]);
 
