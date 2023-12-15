@@ -121,6 +121,14 @@ spanish_audio: vpk/portal_sound_vo_spanish_dir.vpk vpk/portal_sound_vo_spanish_0
 
 buildgame: $(BASE_TARGET_NAME).z64
 
+# Allow targets to depend on the GAME_VERSION variable via a file.
+# Update the file only when it differs from the variable (triggers rebuild).
+.PHONY phony
+build/version.txt: phony
+ifeq ($(shell cat build/version.txt), $(GAME_VERSION))
+	echo -n $(GAME_VERSION) > build/version.txt
+endif
+
 include $(COMMONRULES)
 
 .s.o:
@@ -334,7 +342,7 @@ build/src/menu/controls.o: build/assets/materials/ui.h build/src/audio/clips.h b
 build/src/menu/game_menu.o: build/src/audio/clips.h build/assets/materials/ui.h build/assets/materials/images.h build/assets/test_chambers/test_chamber_00/test_chamber_00.h
 build/src/menu/gameplay_options.o: build/assets/materials/ui.h build/src/audio/clips.h
 build/src/menu/joystick_options.o: build/assets/materials/ui.h build/src/audio/clips.h
-build/src/menu/landing_menu.o: build/assets/materials/ui.h build/src/audio/clips.h
+build/src/menu/landing_menu.o: build/assets/materials/ui.h build/src/audio/clips.h build/version.txt
 build/src/menu/load_game.o: build/assets/materials/ui.h build/src/audio/clips.h build/src/audio/subtitles.h
 build/src/menu/main_menu.o: build/src/audio/clips.h build/assets/materials/ui.h build/assets/materials/images.h build/assets/test_chambers/test_chamber_00/test_chamber_00.h
 build/src/menu/new_game_menu.o: build/src/audio/clips.h build/assets/materials/ui.h build/assets/materials/images.h build/src/audio/subtitles.h build/assets/test_chambers/test_chamber_00/test_chamber_00.h
