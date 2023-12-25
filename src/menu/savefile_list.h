@@ -13,7 +13,7 @@ struct SavefileInfo {
     short testchamberDisplayNumber;
     char* savefileName;
     u16* screenshot;
-    int isFree;
+    u8 isFree;
 };
 
 struct SavefileListSlot {

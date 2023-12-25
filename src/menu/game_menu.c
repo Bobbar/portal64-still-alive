@@ -6,6 +6,7 @@
 #include <string.h>
 
 #include "../build/assets/materials/ui.h"
+#include "../build/src/audio/clips.h"
 #include "../scene/render_plan.h"
 #include "../controls/controller.h"
 #include "./translations.h"
@@ -17,6 +18,7 @@ void gameMenuInit(struct GameMenu* gameMenu, struct LandingMenuOption* options, 
     loadGameMenuInit(&gameMenu->loadGameMenu, &gameMenu->savefileList);
     saveGameMenuInit(&gameMenu->saveGameMenu, &gameMenu->savefileList);
     optionsMenuInit(&gameMenu->optionsMenu);
+    confirmationDialogInit(&gameMenu->confirmationDialog);
 
     gameMenu->state = GameMenuStateLanding;
     gameMenu->currentRenderedLanguage = translationsCurrentLanguage();
@@ -37,6 +39,10 @@ enum GameMenuState gameInputCaptureToState(enum InputCapture direction, enum Gam
     }
 
     return currentState;
+}
+
+static void gameMenuConfirmQuitClosed(struct GameMenu* gameMenu, int isConfirmed) {
+    gameMenu->state = isConfirmed ? GameMenuStateQuit : GameMenuStateLanding;
 }
 
 void gameMenuUpdate(struct GameMenu* gameMenu) {
@@ -65,6 +71,9 @@ void gameMenuUpdate(struct GameMenu* gameMenu) {
         case GameMenuStateOptions:
             gameMenu->state = gameInputCaptureToState(optionsMenuUpdate(&gameMenu->optionsMenu), gameMenu->state);
             break;
+        case GameMenuStateConfirmQuit:
+            confirmationDialogUpdate(&gameMenu->confirmationDialog);
+            break;
         default:
             break;
     }
@@ -77,6 +86,22 @@ void gameMenuUpdate(struct GameMenu* gameMenu) {
             case GameMenuStateSaveGame:
                 saveGamePopulate(&gameMenu->saveGameMenu, 1);
                 break;
+            case GameMenuStateConfirmQuit:
+            {
+                struct ConfirmationDialogParams dialogParams = {
+                    translationsGet(GAMEUI_QUITCONFIRMATIONTITLE),
+                    translationsGet(GAMEUI_CONSOLE_QUITWARNING),
+                    translationsGet(GAMEUI_YES),
+                    translationsGet(GAMEUI_NO),
+                    1,
+                    (ConfirmationDialogCallback)&gameMenuConfirmQuitClosed,
+                    gameMenu
+                };
+
+                confirmationDialogShow(&gameMenu->confirmationDialog, &dialogParams);
+                soundPlayerPlay(SOUNDS_BUTTONCLICKRELEASE, 1.0f, 0.5f, NULL, NULL, SoundTypeAll);
+                break;
+            }
             default:
                 break;
         }
@@ -103,6 +128,8 @@ void gameMenuRender(struct GameMenu* gameMenu, struct RenderState* renderState, 
         case GameMenuStateOptions:
             optionsMenuRender(&gameMenu->optionsMenu, renderState, task);
             break;
+        case GameMenuStateConfirmQuit:
+            confirmationDialogRender(&gameMenu->confirmationDialog, renderState);
         default:
             break;
     }
