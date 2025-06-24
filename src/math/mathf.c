@@ -70,6 +70,10 @@ float mathfBounceBackLerp(float t) {
     return -t + t * t;
 }
 
+float mathfEaseOutQuartLerp(float t) {
+    return 1 - powf(1f - t, 4);
+}
+
 float mathfRandomFloat() {
     return (float)randomInt() / (float)0x7fff;
 }
