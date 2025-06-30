@@ -78,6 +78,13 @@ float mathfOutQuinticLerp(float t) {
     return 1.0f - (invert * invert * invert * invert * invert);
 }
 
+float mathfRemap(float value, float oldMin, float oldMax, float newMin, float newMax) {
+    float newVal = (((value - oldMin) * (newMax - newMin)) / (oldMax - oldMin)) + newMin;
+    newVal = clampf(newVal, newMin, newMax);
+
+    return newVal;
+}
+
 float mathfRandomFloat() {
     return (float)randomInt() / (float)0x7fff;
 }
