@@ -1,6 +1,8 @@
 #include "signage.h"
 
 #include "defs.h"
+#include "audio/soundplayer.h"
+#include "audio/clips.h"
 #include "graphics/color.h"
 #include "levels/levels.h"
 #include "scene/dynamic_scene.h"
@@ -308,6 +310,9 @@ void signageInit(struct Signage* signage, struct SignageDefinition* definition) 
     int dynamicId = dynamicSceneAdd(signage, signageRender, &signage->transform.position, 1.7f);
 
     dynamicSceneSetRoomFlags(dynamicId, ROOM_FLAG_FROM_INDEX(definition->roomIndex));
+
+    signage->soundLoopId = soundPlayerPlay(soundsSignageHum, 0.8f, 1.0f, &signage->transform.position, gZeroVec, SoundTypeAll);
+
 }
 
 
@@ -315,6 +320,8 @@ void signageUpdate(struct Signage* signage) {
     if (signage->currentFrame >= 0 && signage->currentFrame + 1 < SIGNAGE_FRAME_COUNT) {
         ++signage->currentFrame;
     }
+
+    soundPlayerUpdatePosition(signage->soundLoopId, &signage->transform.position, gZeroVec);
 }
 
 void signageActivate(struct Signage* signage) {
