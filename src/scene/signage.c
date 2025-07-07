@@ -310,9 +310,6 @@ void signageInit(struct Signage* signage, struct SignageDefinition* definition) 
     int dynamicId = dynamicSceneAdd(signage, signageRender, &signage->transform.position, 1.7f);
 
     dynamicSceneSetRoomFlags(dynamicId, ROOM_FLAG_FROM_INDEX(definition->roomIndex));
-
-    signage->soundLoopId = soundPlayerPlay(soundsSignageHum, 0.8f, 1.0f, &signage->transform.position, gZeroVec, SoundTypeAll);
-
 }
 
 
@@ -321,11 +318,15 @@ void signageUpdate(struct Signage* signage) {
         ++signage->currentFrame;
     }
 
-    soundPlayerUpdatePosition(signage->soundLoopId, &signage->transform.position, gZeroVec);
+    if (signage->soundLoopId) {
+        soundPlayerUpdatePosition(signage->soundLoopId, &signage->transform.position, &gZeroVec);
+    }
 }
 
 void signageActivate(struct Signage* signage) {
     if (signage->currentFrame == -1) {
         signage->currentFrame = 0;
+
+        signage->soundLoopId = soundPlayerPlay(soundsSignageHum, 0.7f, 1.0f, &signage->transform.position, &gZeroVec, SoundTypeAll);
     }
 }

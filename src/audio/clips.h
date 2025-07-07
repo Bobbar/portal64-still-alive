@@ -34,6 +34,9 @@ extern unsigned short soundsBallBounce;
 extern unsigned short soundsBallKill;
 extern unsigned short soundsBallExplode;
 
+extern unsigned short soundsSignageHum;
+
+
 int clipsCheckSoundSkippable(unsigned short soundID);
 
 #endif

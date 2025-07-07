@@ -312,6 +312,8 @@ set(MUSIC_SCRIPTS
 set(INSTRUMENT_BANKS
     ambient/atmosphere/ambience_base.ins
     ambient/machines/beam_platform_loop1.ins
+    ambient/machines/fluorescent_hum_1.ins
+    ambient/machines/fluorescent_hum_2.ins
     ambient/music/looping_radio_mix.ins
     doors/door_metal_medium_open1.ins
     npc/turret_floor/shoot1.ins
