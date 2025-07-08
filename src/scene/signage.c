@@ -44,61 +44,63 @@ struct SignStateFrame {
     u8 lcdColor       : 2;
     u8 symbolOffColor : 2;
     u8 symbolOnColor  : 2;
+    u8 soundOn        : 2;
 };
 
 #define PROGRESS_ENABLE_LCD_COLOR_INDEX 3
 
 static struct SignStateFrame gSignageFrames[] = {
     // off
-    {.backlightColor = 0, .lcdColor = 0, .symbolOffColor = 0, .symbolOnColor = 0},
+    {.backlightColor = 0, .lcdColor = 0, .symbolOffColor = 0, .symbolOnColor = 0, .soundOn = 0},
     // backlight half on
-    {.backlightColor = 1, .lcdColor = 1, .symbolOffColor = 1, .symbolOnColor = 1},
-    {.backlightColor = 1, .lcdColor = 1, .symbolOffColor = 1, .symbolOnColor = 1},
+    {.backlightColor = 1, .lcdColor = 1, .symbolOffColor = 1, .symbolOnColor = 1, .soundOn = 1},
+    {.backlightColor = 1, .lcdColor = 1, .symbolOffColor = 1, .symbolOnColor = 1, .soundOn = 1},
     // lcd on
-    {.backlightColor = 1, .lcdColor = 2, .symbolOffColor = 1, .symbolOnColor = 1},
-    {.backlightColor = 1, .lcdColor = 2, .symbolOffColor = 1, .symbolOnColor = 1},
-    {.backlightColor = 1, .lcdColor = 2, .symbolOffColor = 1, .symbolOnColor = 1},
-    {.backlightColor = 1, .lcdColor = 2, .symbolOffColor = 1, .symbolOnColor = 1},
-    {.backlightColor = 1, .lcdColor = 2, .symbolOffColor = 1, .symbolOnColor = 1},
-    {.backlightColor = 1, .lcdColor = 2, .symbolOffColor = 1, .symbolOnColor = 1},
+    {.backlightColor = 1, .lcdColor = 2, .symbolOffColor = 1, .symbolOnColor = 1, .soundOn = 1},
+    {.backlightColor = 1, .lcdColor = 2, .symbolOffColor = 1, .symbolOnColor = 1, .soundOn = 1},
+    {.backlightColor = 1, .lcdColor = 2, .symbolOffColor = 1, .symbolOnColor = 1, .soundOn = 0},
+    {.backlightColor = 1, .lcdColor = 2, .symbolOffColor = 1, .symbolOnColor = 1, .soundOn = 0},
+    {.backlightColor = 1, .lcdColor = 2, .symbolOffColor = 1, .symbolOnColor = 1, .soundOn = 1},
+    {.backlightColor = 1, .lcdColor = 2, .symbolOffColor = 1, .symbolOnColor = 1, .soundOn = 1},
     // backlight full on
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 2},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 2},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 2},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 2},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 2},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 2},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 2, .soundOn = 0},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 2, .soundOn = 0},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 2, .soundOn = 1},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 2, .soundOn = 1},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 2, .soundOn = 1},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 2, .soundOn = 1},
     // backlight flicker
-    {.backlightColor = 1, .lcdColor = 2, .symbolOffColor = 1, .symbolOnColor = 1},
-    {.backlightColor = 1, .lcdColor = 2, .symbolOffColor = 1, .symbolOnColor = 1},
-    {.backlightColor = 1, .lcdColor = 2, .symbolOffColor = 1, .symbolOnColor = 1},
+    {.backlightColor = 1, .lcdColor = 2, .symbolOffColor = 1, .symbolOnColor = 1, .soundOn = 0},
+    {.backlightColor = 1, .lcdColor = 2, .symbolOffColor = 1, .symbolOnColor = 1, .soundOn = 1},
+    {.backlightColor = 1, .lcdColor = 2, .symbolOffColor = 1, .symbolOnColor = 1, .soundOn = 0},
     // backlight full back on
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 2},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 2},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 2},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 2},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 2},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 2, .soundOn = 1},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 2, .soundOn = 1},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 2, .soundOn = 1},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 2, .soundOn = 1},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 2, .soundOn = 1},
     // warning on
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3},
-    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3, .soundOn = 1},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3, .soundOn = 1},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3, .soundOn = 1},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3, .soundOn = 1},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3, .soundOn = 1},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3, .soundOn = 1},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3, .soundOn = 1},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3, .soundOn = 1},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3, .soundOn = 1},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3, .soundOn = 1},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3, .soundOn = 1},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3, .soundOn = 1},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3, .soundOn = 1},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3, .soundOn = 1},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3, .soundOn = 1},
+    {.backlightColor = 2, .lcdColor = 2, .symbolOffColor = 3, .symbolOnColor = 3, .soundOn = 1},
     // progress on
-    {.backlightColor = 2, .lcdColor = PROGRESS_ENABLE_LCD_COLOR_INDEX, .symbolOffColor = 3, .symbolOnColor = 3},
+    {.backlightColor = 2, .lcdColor = PROGRESS_ENABLE_LCD_COLOR_INDEX, .symbolOffColor = 3, .symbolOnColor = 3, .soundOn = 1},
 };
 
+#define SIGNAGE_HUM_VOLUME 0.7f
 #define SIGNAGE_FRAME_COUNT (sizeof(gSignageFrames) / sizeof(*gSignageFrames))
 
 static short gCurrentSignageIndex = -1;
@@ -316,10 +318,12 @@ void signageInit(struct Signage* signage, struct SignageDefinition* definition) 
 void signageUpdate(struct Signage* signage) {
     if (signage->currentFrame >= 0 && signage->currentFrame + 1 < SIGNAGE_FRAME_COUNT) {
         ++signage->currentFrame;
-    }
 
-    if (signage->soundLoopId) {
-        soundPlayerUpdatePosition(signage->soundLoopId, &signage->transform.position, &gZeroVec);
+        if (signage->soundLoopId) {
+            struct SignStateFrame frame = gSignageFrames[signage->currentFrame];
+            soundPlayerUpdatePosition(signage->soundLoopId, &signage->transform.position, &gZeroVec);
+            soundPlayerAdjustVolume(signage->soundLoopId, SIGNAGE_HUM_VOLUME * frame->soundOn);
+        }
     }
 }
 
@@ -327,6 +331,6 @@ void signageActivate(struct Signage* signage) {
     if (signage->currentFrame == -1) {
         signage->currentFrame = 0;
 
-        signage->soundLoopId = soundPlayerPlay(soundsSignageHum, 0.7f, 1.0f, &signage->transform.position, &gZeroVec, SoundTypeAll);
+        signage->soundLoopId = soundPlayerPlay(soundsSignageHum, 0.0f, 1.0f, &signage->transform.position, &gZeroVec, SoundTypeAll);
     }
 }
