@@ -101,6 +101,8 @@ float soundPlayerGetEcho(int param) {
         return echoNMax;
         break;
     }
+
+    return 0;
 }
 
 
@@ -171,7 +173,8 @@ void soundPlayerDetermine3DSound(struct Vector3* at, struct Vector3* velocity, f
 
     // Add FX/reverb amount.
     // TODO: Define/name these values?
-    *fxMix = (int)(127.0f * (1.0f - mathfRemap(volumeLevel, 0.02f, 0.3f, 0.2f, 0.85f)));
+    //*fxMix = (int)(127.0f * (1.0f - mathfRemap(volumeLevel, 0.02f, 0.3f, 0.2f, 0.85f)));
+    *fxMix = (int)(127.0f * (1.0f - mathfRemap(volumeLevel, echoOMin, echoOMax, echoNMin, echoNMax)));
 
     // Fudge with the volume curve a bit. 
     // Try to make distant sounds more apparent while

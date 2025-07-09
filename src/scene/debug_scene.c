@@ -73,27 +73,27 @@ static void debugSceneRenderTextMetric(struct FontRenderer* renderer, char* text
         renderState->dl
     );
 }
-
-static uint64_t debugSceneVisibleRooms(struct RenderPlan* renderPlan) {
-    uint64_t visibleRooms = 0;
-
-    // Account for rooms visible from player POV and through portals
-    for (int i = 0; i < renderPlan->stageCount; ++i) {
-        visibleRooms |= renderPlan->stageProps[i].visiblerooms;
-    }
-
-    return visibleRooms;
-}
-
-static int debugSceneVisibleRoomCount(uint64_t visibleRooms) {
-    int roomCount = 0;
-    while (visibleRooms) {
-        ++roomCount;
-        visibleRooms &= visibleRooms - 1;
-    }
-
-    return roomCount;
-}
+//
+//static uint64_t debugSceneVisibleRooms(struct RenderPlan* renderPlan) {
+//    uint64_t visibleRooms = 0;
+//
+//    // Account for rooms visible from player POV and through portals
+//    for (int i = 0; i < renderPlan->stageCount; ++i) {
+//        visibleRooms |= renderPlan->stageProps[i].visiblerooms;
+//    }
+//
+//    return visibleRooms;
+//}
+//
+//static int debugSceneVisibleRoomCount(uint64_t visibleRooms) {
+//    int roomCount = 0;
+//    while (visibleRooms) {
+//        ++roomCount;
+//        visibleRooms &= visibleRooms - 1;
+//    }
+//
+//    return roomCount;
+//}
 
 // Average time-based metrics over 2 frames for more stable output
 static float debugSceneAveragedTimeMs(float value, float* prevValue) {
@@ -155,8 +155,8 @@ static void debugSceneRenderPerformanceMetrics(struct Scene* scene, struct Rende
 
     float dt = debugSceneAveragedTimeMs(gLastFrameTime, &lastFrameTimeMs);
 
-    uint64_t visibleRooms = debugSceneVisibleRooms(renderPlan);
-    int roomCount = debugSceneVisibleRoomCount(visibleRooms);
+    //uint64_t visibleRooms = debugSceneVisibleRooms(renderPlan);
+    //int roomCount = debugSceneVisibleRoomCount(visibleRooms);
 
     sprintf(metricText, "COL: %d/%d %d/%d",
         collisionSceneDynamicObjectCount(), MAX_DYNAMIC_COLLISION,
@@ -236,60 +236,49 @@ void debugSceneUpdate(struct Scene* scene) {
         scene->hideCurrentRoom ^= 1;
     }
 
-    if (controllerGetButtonDown(2, BUTTON_LEFT)) {
+    if (controllerGetButtonDown(2, BUTTON_Z)) {
         scene->showPerformanceMetrics ^= 1;
     }
 
-    if (controllerGetButtonDown(2, BUTTON_RIGHT)) {
+    if (controllerGetButtonDown(2, BUTTON_B)) {
         scene->showCollisionContacts ^= 1;
     }
 
-    bool zDown = controllerGetButtonDown(2, BUTTON_Z);
+
 
     if (controllerGetButtonDown(2, BUTTON_C_UP)) {
-       
-        if (!zDown) {
-            soundPlayerAdjustEcho(0, 0.01f);
-        }
-        else {
-            soundPlayerAdjustEcho(2, 0.01f);
-        }
-
+        soundPlayerAdjustEcho(0, 0.01f);
     }
 
     if (controllerGetButtonDown(2, BUTTON_C_DOWN)) {
-
-        if (!zDown) {
-            soundPlayerAdjustEcho(0, -0.01f);
-        }
-        else {
-            soundPlayerAdjustEcho(2, -0.01f);
-        }
-
+        soundPlayerAdjustEcho(0, -0.01f);
     }
 
+
     if (controllerGetButtonDown(2, BUTTON_C_LEFT)) {
-
-        if (!zDown) {
-            soundPlayerAdjustEcho(1, 0.01f);
-        }
-        else {
-            soundPlayerAdjustEcho(3, 0.01f);
-        }
-
+        soundPlayerAdjustEcho(1, 0.01f);
     }
 
     if (controllerGetButtonDown(2, BUTTON_C_RIGHT)) {
-
-        if (!zDown) {
-            soundPlayerAdjustEcho(1, -0.01f);
-        }
-        else {
-            soundPlayerAdjustEcho(3, -0.01f);
-        }
-
+        soundPlayerAdjustEcho(1, -0.01f);
     }
-   
+
+
+    if (controllerGetButtonDown(2, BUTTON_UP)) {
+        soundPlayerAdjustEcho(2, 0.01f);
+    }
+
+    if (controllerGetButtonDown(2, BUTTON_DOWN)) {
+        soundPlayerAdjustEcho(2, -0.01f);
+    }
+
+    if (controllerGetButtonDown(2, BUTTON_LEFT)) {
+        soundPlayerAdjustEcho(3, 0.01f);
+    }
+
+    if (controllerGetButtonDown(2, BUTTON_RIGHT)) {
+        soundPlayerAdjustEcho(3, -0.01f);
+    }
 }
 
 void debugSceneRender(struct Scene* scene, struct RenderState* renderState, struct RenderPlan* renderPlan) {
