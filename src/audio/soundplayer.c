@@ -61,27 +61,23 @@ float echoOMax = 0.3f;
 float echoNMin = 0.2f;
 float echoNMax = 0.85f;
 
-float soundPlayerAdjustEcho(int param, float amt) {
+void soundPlayerAdjustEcho(int param, float amt) {
     switch (param) {
 
     case 0:
         echoOMin += amt;
-        return echoOMin;
         break;
 
     case 1:
         echoOMax += amt;
-        return echoOMax;
         break;
 
     case 2:
         echoNMin += amt;
-        return echoNMin;
         break;
 
     case 3:
         echoNMax += amt;
-        return echoNMax;
         break;
     }
 }

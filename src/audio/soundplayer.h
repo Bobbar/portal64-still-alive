@@ -22,7 +22,7 @@ enum SoundType{
 
 typedef ALSndId SoundId;
 
-float soundPlayerAdjustEcho(int param, float amt);
+void soundPlayerAdjustEcho(int param, float amt);
 float soundPlayerGetEcho(int param);
 void soundPlayerInit();
 void soundPlayerGameVolumeUpdate();
