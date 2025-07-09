@@ -10,6 +10,7 @@
 #include "player/player.h"
 #include "system/controller.h"
 #include "system/time.h"
+#include "audio/soundplayer.h"
 
 #include "codegen/assets/materials/ui.h"
 
@@ -164,6 +165,27 @@ static void debugSceneRenderPerformanceMetrics(struct Scene* scene, struct Rende
     debugSceneRenderTextMetric(&fontRenderer, metricText, textY, renderState);
 
     textY -= fontRenderer.height - PERF_METRIC_ROW_PADDING;
+    sprintf(metricText, "SNDS: %d", soundPlayerNumActiveSounds());
+    debugSceneRenderTextMetric(&fontRenderer, metricText, textY, renderState);
+
+    textY -= fontRenderer.height - PERF_METRIC_ROW_PADDING;
+    sprintf(metricText, "nMAX: %1.3f", soundPlayerGetEcho(3));
+    debugSceneRenderTextMetric(&fontRenderer, metricText, textY, renderState);
+
+    textY -= fontRenderer.height - PERF_METRIC_ROW_PADDING;
+    sprintf(metricText, "nMIN: %1.3f", soundPlayerGetEcho(2));
+    debugSceneRenderTextMetric(&fontRenderer, metricText, textY, renderState);
+
+    textY -= fontRenderer.height - PERF_METRIC_ROW_PADDING;
+    sprintf(metricText, "oMAX: %1.3f", soundPlayerGetEcho(1));
+    debugSceneRenderTextMetric(&fontRenderer, metricText, textY, renderState);
+
+    textY -= fontRenderer.height - PERF_METRIC_ROW_PADDING;
+    sprintf(metricText, "oMIN: %1.3f", soundPlayerGetEcho(0));
+    debugSceneRenderTextMetric(&fontRenderer, metricText, textY, renderState);
+
+
+  /*  textY -= fontRenderer.height - PERF_METRIC_ROW_PADDING;
     sprintf(metricText, "VDO: %d/%d", dynamicSceneViewDependentObjectCount(), MAX_VIEW_DEPENDENT_OBJECTS);
     debugSceneRenderTextMetric(&fontRenderer, metricText, textY, renderState);
 
@@ -173,7 +195,7 @@ static void debugSceneRenderPerformanceMetrics(struct Scene* scene, struct Rende
 
     textY -= fontRenderer.height - PERF_METRIC_ROW_PADDING;
     sprintf(metricText, "RMS: %d %llx", roomCount, visibleRooms);
-    debugSceneRenderTextMetric(&fontRenderer, metricText, textY, renderState);
+    debugSceneRenderTextMetric(&fontRenderer, metricText, textY, renderState);*/
 
     textY -= fontRenderer.height - PERF_METRIC_ROW_PADDING;
     sprintf(metricText, "UPD: %2.2f", debugSceneAveragedTimeMs(scene->updateTime, &lastUpdateTimeMs));
@@ -183,9 +205,9 @@ static void debugSceneRenderPerformanceMetrics(struct Scene* scene, struct Rende
     sprintf(metricText, "CPU: %2.2f", debugSceneAveragedTimeMs(scene->cpuTime, &lastCpuTimeMs));
     debugSceneRenderTextMetric(&fontRenderer, metricText, textY, renderState);
 
-    textY -= fontRenderer.height - PERF_METRIC_ROW_PADDING;
+ /*   textY -= fontRenderer.height - PERF_METRIC_ROW_PADDING;
     sprintf(metricText, " DT: %2.2f", dt);
-    debugSceneRenderTextMetric(&fontRenderer, metricText, textY, renderState);
+    debugSceneRenderTextMetric(&fontRenderer, metricText, textY, renderState);*/
 
     textY -= fontRenderer.height - PERF_METRIC_ROW_PADDING;
     sprintf(metricText, "FPS: %2.2f", 1000.0f / dt);
@@ -221,6 +243,53 @@ void debugSceneUpdate(struct Scene* scene) {
     if (controllerGetButtonDown(2, BUTTON_RIGHT)) {
         scene->showCollisionContacts ^= 1;
     }
+
+    bool zDown = controllerGetButtonDown(2, BUTTON_Z);
+
+    if (controllerGetButtonDown(2, BUTTON_C_UP)) {
+       
+        if (!zDown) {
+            soundPlayerAdjustEcho(0, 0.01f);
+        }
+        else {
+            soundPlayerAdjustEcho(2, 0.01f);
+        }
+
+    }
+
+    if (controllerGetButtonDown(2, BUTTON_C_DOWN)) {
+
+        if (!zDown) {
+            soundPlayerAdjustEcho(0, -0.01f);
+        }
+        else {
+            soundPlayerAdjustEcho(2, -0.01f);
+        }
+
+    }
+
+    if (controllerGetButtonDown(2, BUTTON_C_LEFT)) {
+
+        if (!zDown) {
+            soundPlayerAdjustEcho(1, 0.01f);
+        }
+        else {
+            soundPlayerAdjustEcho(3, 0.01f);
+        }
+
+    }
+
+    if (controllerGetButtonDown(2, BUTTON_C_RIGHT)) {
+
+        if (!zDown) {
+            soundPlayerAdjustEcho(1, -0.01f);
+        }
+        else {
+            soundPlayerAdjustEcho(3, -0.01f);
+        }
+
+    }
+   
 }
 
 void debugSceneRender(struct Scene* scene, struct RenderState* renderState, struct RenderPlan* renderPlan) {

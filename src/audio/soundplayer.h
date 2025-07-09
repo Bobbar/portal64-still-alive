@@ -22,6 +22,8 @@ enum SoundType{
 
 typedef ALSndId SoundId;
 
+float soundPlayerAdjustEcho(int param, float amt);
+float soundPlayerGetEcho(int param);
 void soundPlayerInit();
 void soundPlayerGameVolumeUpdate();
 void soundPlayerUpdate();
@@ -36,6 +38,7 @@ void soundPlayerResume();
 void soundPlayerUpdatePosition(ALSndId soundId, struct Vector3* at, struct Vector3* velocity);
 void soundPlayerAdjustVolume(ALSndId soundId, float newVolume);
 
+int soundPlayerNumActiveSounds();
 int soundPlayerIsPlaying(ALSndId soundId);
 int soundPlayerIsLoopedById(int soundId);
 float soundPlayerTimeLeft(ALSndId soundId);

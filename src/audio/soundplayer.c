@@ -55,6 +55,59 @@ int gActiveSoundCount = 0;
 struct SoundListener gSoundListeners[MAX_SOUND_LISTENERS];
 int gActiveListenerCount = 0;
 
+
+float echoOMin = 0.02f;
+float echoOMax = 0.3f;
+float echoNMin = 0.2f;
+float echoNMax = 0.85f;
+
+float soundPlayerAdjustEcho(int param, float amt) {
+    switch (param) {
+
+    case 0:
+        echoOMin += amt;
+        return echoOMin;
+        break;
+
+    case 1:
+        echoOMax += amt;
+        return echoOMax;
+        break;
+
+    case 2:
+        echoNMin += amt;
+        return echoNMin;
+        break;
+
+    case 3:
+        echoNMax += amt;
+        return echoNMax;
+        break;
+    }
+}
+
+float soundPlayerGetEcho(int param) {
+    switch (param) {
+
+    case 0:
+        return echoOMin;
+        break;
+
+    case 1:
+        return echoOMax;
+        break;
+
+    case 2:
+        return echoNMin;
+        break;
+
+    case 3:
+        return echoNMax;
+        break;
+    }
+}
+
+
 void soundPlayerDetermine3DSound(struct Vector3* at, struct Vector3* velocity, float* volumeIn, float* volumeOut, int* panOut, float* pitchBend, int* fxMix) {
     if (!gActiveListenerCount) {
         *volumeOut = *volumeIn;
@@ -478,6 +531,10 @@ void soundPlayerAdjustVolume(ALSndId soundId, float newVolume) {
             }
         }
     }
+}
+
+int soundPlayerNumActiveSounds() {
+    return gActiveSoundCount;
 }
 
 int soundPlayerIsPlaying(ALSndId soundId) {
