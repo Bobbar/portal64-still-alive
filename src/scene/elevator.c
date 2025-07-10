@@ -205,7 +205,7 @@ int elevatorUpdate(struct Elevator* elevator, struct Player* player) {
     if ((isClosed && shouldBeOpen) || (isOpen && !shouldBeOpen)) {
         soundPlayerPlay(soundsElevatorDoor, 1.0f, 0.5f, &elevator->rigidBody.transform.position, &gZeroVec, SoundTypeAll);
         if ((isClosed && shouldBeOpen) && (elevator->flags & ElevatorFlagsIsArrival)){
-            soundPlayerPlay(soundsElevatorChime, 1.5f, 0.25f, &elevator->rigidBody.transform.position, &gZeroVec, SoundTypeAll);
+            soundPlayerPlay(soundsElevatorChime, 1.5f, 0.5f, &elevator->rigidBody.transform.position, &gZeroVec, SoundTypeAll);
             hudShowSubtitle(&gScene.hud, PORTAL_ELEVATOR_CHIME, SubtitleTypeCaption);
         }
     }

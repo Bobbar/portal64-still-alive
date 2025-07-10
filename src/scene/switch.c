@@ -163,7 +163,7 @@ void switchUpdate(struct Switch* switchObj) {
                 switchObj->ticktockPauseTimer += FIXED_DELTA_TIME;
             } else {
                 switchObj->ticktockPauseTimer = 0.0f;
-                switchObj->ticktockSoundLoopId = soundPlayerPlay(soundsTickTock, 1.0f, 0.25f, NULL, NULL, SoundTypeAll);
+                switchObj->ticktockSoundLoopId = soundPlayerPlay(soundsTickTock, 1.0f, 0.5f, NULL, NULL, SoundTypeAll);
                 hudShowSubtitle(&gScene.hud, PORTAL_ROOM1_TICKTOCK, SubtitleTypeCaption);
             }
         } else {
