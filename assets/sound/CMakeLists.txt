@@ -3,6 +3,7 @@ set(PAK_MODIFIED_SOUND_DIR "${PAK_MODIFIED_DIR}/sound")
 
 set(JSOX                   "${PROJECT_SOURCE_DIR}/tools/sound/jsox.js")
 set(GEN_SOUND_IDS          "${PROJECT_SOURCE_DIR}/tools/sound/generate_sound_ids.js")
+set(SAMPLE_RATE            "27000")
 
 cmake_path(
     RELATIVE_PATH CMAKE_CURRENT_SOURCE_DIR
@@ -340,7 +341,7 @@ function(_add_sound_transform_command_sox SOUND_SCRIPT INPUT_FILE OUTPUT_FILE)
             ${CMAKE_COMMAND} -E make_directory "$<PATH:GET_PARENT_PATH,${OUTPUT_FILE}>"
         COMMAND
             ${Python3_EXECUTABLE} ${RUN_COMMAND}
-            ${Sox_EXECUTABLE} ${INPUT_FILE} @${SOUND_SCRIPT} ${OUTPUT_FILE} -V1
+            ${Sox_EXECUTABLE} ${INPUT_FILE} @${SOUND_SCRIPT} -r ${SAMPLE_RATE} ${OUTPUT_FILE} -V1
         COMMENT
             "Transforming $<PATH:RELATIVE_PATH,${INPUT_FILE},${PROJECT_SOURCE_DIR}>"
         VERBATIM
@@ -360,7 +361,7 @@ function(_add_sound_transform_command_jsox SOUND_SCRIPT INPUT_FILE OUTPUT_FILE)
             "$<PATH:GET_PARENT_PATH,${INPUT_FILE}>"
         COMMAND
             ${NodeJs_EXECUTABLE} ${JSOX}
-            ${Sox_EXECUTABLE} ${SOUND_SCRIPT} ${INPUT_FILE} ${OUTPUT_FILE}
+            ${Sox_EXECUTABLE} ${SOUND_SCRIPT} ${INPUT_FILE} ${OUTPUT_FILE} ${SAMPLE_RATE}
         COMMENT
             "Transforming $<PATH:RELATIVE_PATH,${INPUT_FILE},${PROJECT_SOURCE_DIR}>"
         VERBATIM

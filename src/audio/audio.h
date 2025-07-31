@@ -12,7 +12,7 @@
 #define MAX_VOICES              32
 #define EXTRA_SAMPLES           80
 #define NUM_OUTPUT_BUFFERS      3      /* Need three of these */
-#define OUTPUT_RATE             22050
+#define OUTPUT_RATE             27000
 #define MAX_AUDIO_MESGS         32
 #define QUIT_MSG                10
 
