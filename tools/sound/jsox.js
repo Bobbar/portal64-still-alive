@@ -15,8 +15,8 @@ const fileJSON = JSON.parse(fileContents);
 
 for (const command of fileJSON) {
 
-    if (command.filters !== null) {
-        command.filters = `${command.filters} speed ${sampleRate}`
+    if (command.flags !== null) {
+        command.flags = `${command.flags} -r ${sampleRate}`
     }
 
     const commandText = `"${soxPath}" -V1 "${inputFile}" ${command.flags || ''} "${outputFile}" ${command.filters || ''}`;
