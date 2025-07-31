@@ -74,8 +74,8 @@ set(SOUND_SCRIPTS
     ambient/machines/wall_move5.sox
     ambient/music/looping_radio_mix.sox
     ambient/music/valve.sox
-    buttons/button10.sox
-    buttons/button3.sox
+    buttons/button10.jsox
+    buttons/button3.jsox
     common/wpn_denyselect.sox
     common/wpn_select.sox
     doors/door_metal_thin_close2.sox

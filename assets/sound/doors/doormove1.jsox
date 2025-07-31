@@ -1,6 +1,6 @@
 [
     {
         "flags": "-c 1 -r 22050",
-        "filters": "trim 0 0.7479"
+        "filters": "trim 0 0.7479 speed 0.8"
     }
 ]
