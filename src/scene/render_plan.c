@@ -364,7 +364,7 @@ int renderShouldRenderOtherPortal(struct Scene* scene, int visiblePortal, struct
     struct Vector3 sceneScalePos;
     vector3Scale(&gCollisionScene.portalTransforms[visiblePortal]->position, &sceneScalePos, SCENE_SCALE);
 
-    return planePointDistance(&properties->cameraMatrixInfo.cullingInformation.clippingPlanes[CLIPPING_PLANE_NEAR], &sceneScalePos) >= -1.0f * SCENE_SCALE;
+    return planePointDistance(&properties->cameraMatrixInfo.cullingInformation.clippingPlanes[CLIPPING_PLANE_NEAR], &sceneScalePos) >= -0.1f * SCENE_SCALE;
 }
 
 void renderPlanFinishView(struct RenderPlan* renderPlan, struct Scene* scene, struct RenderProps* properties, struct RenderState* renderState) {
