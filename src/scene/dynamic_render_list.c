@@ -7,8 +7,6 @@
 
 extern struct DynamicScene gDynamicScene;
 
-#define FLAG_MASK (DYNAMIC_SCENE_OBJECT_FLAGS_USED | DYNAMIC_SCENE_OBJECT_FLAGS_ACTIVE)
-
 struct DynamicRenderDataList* dynamicRenderListNew(struct RenderState* renderState, int maxLength) {
     struct DynamicRenderDataList* result = stackMalloc(sizeof(struct DynamicRenderDataList));
     result->renderState = renderState;
@@ -131,7 +129,7 @@ void dynamicRenderListPopulate(struct DynamicRenderDataList* list, struct Render
     for (int i = 0; i < MAX_DYNAMIC_SCENE_OBJECTS; ++i) {
         struct DynamicSceneObject* object = &gDynamicScene.objects[i];
 
-        if ((object->flags & FLAG_MASK) != FLAG_MASK) {
+        if (!(object->flags & DYNAMIC_SCENE_OBJECT_FLAGS_USED)) {
             continue;
         }
 
@@ -188,7 +186,7 @@ void dynamicRenderPopulateRenderScene(
     for (int i = 0; i < MAX_VIEW_DEPENDENT_OBJECTS; ++i) {
         struct DynamicSceneViewDependentObject* object = &gDynamicScene.viewDependentObjects[i];
 
-        if ((object->flags & FLAG_MASK) != FLAG_MASK) {
+        if (!(object->flags & DYNAMIC_SCENE_OBJECT_FLAGS_USED)) {
             continue;
         }
 

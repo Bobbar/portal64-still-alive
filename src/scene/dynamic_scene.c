@@ -20,7 +20,7 @@ int dynamicSceneAdd(void* data, DynamicRender renderCallback, struct Vector3* po
         struct DynamicSceneObject* object = &gDynamicScene.objects[i];
         if (!(object->flags & DYNAMIC_SCENE_OBJECT_FLAGS_USED)) {
 
-            object->flags = DYNAMIC_SCENE_OBJECT_FLAGS_USED | DYNAMIC_SCENE_OBJECT_FLAGS_ACTIVE;
+            object->flags = DYNAMIC_SCENE_OBJECT_FLAGS_USED;
             object->data = data;
             object->renderCallback = renderCallback;
             object->position = position;
@@ -38,7 +38,7 @@ int dynamicSceneAddViewDependent(void* data, DynamicViewRender renderCallback, s
         struct DynamicSceneViewDependentObject* object = &gDynamicScene.viewDependentObjects[i];
         if (!(object->flags & DYNAMIC_SCENE_OBJECT_FLAGS_USED)) {
 
-            object->flags = DYNAMIC_SCENE_OBJECT_FLAGS_USED | DYNAMIC_SCENE_OBJECT_FLAGS_ACTIVE;
+            object->flags = DYNAMIC_SCENE_OBJECT_FLAGS_USED;
             object->data = data;
             object->renderCallback = renderCallback;
             object->position = position;

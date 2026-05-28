@@ -15,8 +15,7 @@ typedef void (*DynamicViewRender)(void* data, struct RenderScene* renderScene, s
 #define MAX_VIEW_DEPENDENT_OBJECTS 24
 
 #define DYNAMIC_SCENE_OBJECT_FLAGS_USED                 (1 << 0)
-#define DYNAMIC_SCENE_OBJECT_FLAGS_ACTIVE               (1 << 1)
-#define DYNAMIC_SCENE_OBJECT_SKIP_ROOT                  (1 << 2)
+#define DYNAMIC_SCENE_OBJECT_SKIP_ROOT                  (1 << 1)
 
 #define INVALID_DYNAMIC_OBJECT  -1
 
