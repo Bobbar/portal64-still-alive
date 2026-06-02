@@ -261,7 +261,7 @@ void collisionSceneSetPortal(int portalIndex, struct Transform* transform, int r
     gCollisionScene.portalRooms[portalIndex] = roomIndex;
     gCollisionScene.portalColliderIndex[portalIndex] = colliderIndex;
 
-    if (gCollisionScene.portalTransforms[1 - portalIndex]) {
+    if (transform && gCollisionScene.portalTransforms[1 - portalIndex]) {
         struct Transform inverseTransform;
         transformInvert(transform, &inverseTransform);
         transformConcat(gCollisionScene.portalTransforms[1 - portalIndex], &inverseTransform, &gCollisionScene.toOtherPortalTransform[portalIndex]);
@@ -269,12 +269,18 @@ void collisionSceneSetPortal(int portalIndex, struct Transform* transform, int r
     }
 }
 
-struct Transform* collisionSceneTransformToPortal(int fromPortal) {
+struct Transform* collisionSceneTransformToOtherPortal(int fromPortal) {
     if (!collisionSceneIsPortalOpen()) {
         return NULL;
     }
 
     return &gCollisionScene.toOtherPortalTransform[fromPortal];
+}
+
+void collisionSceneGetPortalNormal(int portalIndex, struct Vector3* out) {
+    *out = gZeroVec;
+    out->z = portalIndex ? 1.0f : -1.0f;
+    quatMultVector(&gCollisionScene.portalTransforms[portalIndex]->rotation, out, out);
 }
 
 void collisionScenePushObjectsOutOfPortal(int portalIndex) {
@@ -557,13 +563,12 @@ int collisionSceneRaycast(struct CollisionScene* scene, int roomIndex, struct Ra
                     numPortalsPassed = -1;
                 }
 
-                struct Transform portalTransform;
-                collisionSceneGetPortalTransform(i, &portalTransform);
+                struct Transform* portalTransform = collisionSceneTransformToOtherPortal(i);
 
                 struct Ray newRay;
 
-                transformPoint(&portalTransform, &hit->at, &newRay.origin);
-                quatMultVector(&portalTransform.rotation, &ray->dir, &newRay.dir);
+                transformPoint(portalTransform, &hit->at, &newRay.origin);
+                quatMultVector(&portalTransform->rotation, &ray->dir, &newRay.dir);
 
                 struct RaycastHit newHit;
 
@@ -583,18 +588,6 @@ int collisionSceneRaycast(struct CollisionScene* scene, int roomIndex, struct Ra
     }
 
     return hit->distance != maxDistance;
-}
-
-void collisionSceneGetPortalTransform(int fromPortal, struct Transform* out) {
-    struct Transform inverseA;
-    transformInvert(gCollisionScene.portalTransforms[fromPortal], &inverseA);
-    transformConcat(gCollisionScene.portalTransforms[1 - fromPortal], &inverseA, out);
-}
-
-void collisionSceneGetPortalNormal(int portalIndex, struct Vector3* out) {
-    *out = gZeroVec;
-    out->z = portalIndex ? 1.0f : -1.0f;
-    quatMultVector(&gCollisionScene.portalTransforms[portalIndex]->rotation, out, out);
 }
 
 void collisionSceneAddDynamicObject(struct CollisionObject* object) {

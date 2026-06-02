@@ -17,8 +17,8 @@ struct DynamicRenderDataList* dynamicRenderListNew(struct RenderState* renderSta
     result->stageCount = 0;
 
     if (collisionSceneIsPortalOpen()) {
-        transformToMatrix(collisionSceneTransformToPortal(0), result->portalTransforms[0], SCENE_SCALE);
-        transformToMatrix(collisionSceneTransformToPortal(1), result->portalTransforms[1], SCENE_SCALE);
+        transformToMatrix(collisionSceneTransformToOtherPortal(0), result->portalTransforms[0], SCENE_SCALE);
+        transformToMatrix(collisionSceneTransformToOtherPortal(1), result->portalTransforms[1], SCENE_SCALE);
     } else {
         guMtxIdentF(result->portalTransforms[0]);
         guMtxIdentF(result->portalTransforms[1]);
@@ -119,7 +119,7 @@ void dynamicRenderListAddDataTouchingPortal(
     struct DynamicRenderData* next = &list->renderData[list->currentLength++];
     next->model = model;
     next->transform = mtx;
-    transformPoint(collisionSceneTransformToPortal(touchingPortalIndex), position, &next->position);
+    transformPoint(collisionSceneTransformToOtherPortal(touchingPortalIndex), position, &next->position);
     next->armature = armature;
     next->materialIndex = materialIndex;
     next->renderStageCullingMask = cullingMask;

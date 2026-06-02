@@ -41,16 +41,14 @@ int collisionSceneObjectIsTouchingPortal(struct CollisionObject* object, int por
 int collisionSceneIsPortalOpen();
 
 void collisionSceneSetPortal(int portalIndex, struct Transform* transform, int roomIndex, int colliderIndex);
-struct Transform* collisionSceneTransformToPortal(int fromPortal);
+struct Transform* collisionSceneTransformToOtherPortal(int fromPortal);
+void collisionSceneGetPortalNormal(int portalIndex, struct Vector3* out);
 
 void collisionScenePushObjectsOutOfPortal(int portalIndex);
 void collisionSceneCheckUnwokenObjectsNearPortal(int portalIndex);
 
 int collisionSceneRaycast(struct CollisionScene* scene, int roomIndex, struct Ray* ray, short collisionLayers, float maxDistance, int passThroughPortals, struct RaycastHit* hit);
 int collisionSceneRaycastOnlyDynamic(struct CollisionScene* scene, struct Ray* ray, short collisionLayers, float maxDistance, struct RaycastHit* hit);
-
-void collisionSceneGetPortalTransform(int fromPortal, struct Transform* out);
-void collisionSceneGetPortalNormal(int portalIndex, struct Vector3* out);
 
 void collisionSceneAddDynamicObject(struct CollisionObject* object);
 void collisionSceneRemoveDynamicObject(struct CollisionObject* object);

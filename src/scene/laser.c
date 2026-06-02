@@ -161,12 +161,9 @@ void laserUpdate(struct Laser* laser) {
         } else {
             int portalIndex = (touchingPortals & RigidBodyIsTouchingPortalA) ? 0 : 1;
 
-            startPosition.origin = hit.at;
             currentRoom = gCollisionScene.portalRooms[1 - portalIndex];
-
-            struct Transform portalTransform;
-            collisionSceneGetPortalTransform(portalIndex, &portalTransform);
-            rayTransform(&portalTransform, &startPosition, &startPosition);
+            startPosition.origin = hit.at;
+            rayTransform(collisionSceneTransformToOtherPortal(portalIndex), &startPosition, &startPosition);
         }
     }
 

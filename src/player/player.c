@@ -546,15 +546,15 @@ void playerPortalGrabTransform(struct Player* player, struct Vector3* grabPoint,
     if (player->grabbingThroughPortal == PLAYER_GRABBING_THROUGH_NOTHING) {
         return;
     }
-    struct Transform pointTransform;
-    collisionSceneGetPortalTransform(player->grabbingThroughPortal > 0 ? 0 : 1, &pointTransform);
+
+    struct Transform* portalTransform = collisionSceneTransformToOtherPortal(player->grabbingThroughPortal > 0 ? 0 : 1);
     
     for (int i = 0; i < abs(player->grabbingThroughPortal); ++i) {
         if (grabPoint) {
-            transformPoint(&pointTransform, grabPoint, grabPoint);
+            transformPoint(portalTransform, grabPoint, grabPoint);
         }
         struct Quaternion finalRotation;
-        quatMultiply(&pointTransform.rotation, grabRotation, &finalRotation);
+        quatMultiply(&portalTransform->rotation, grabRotation, &finalRotation);
         *grabRotation = finalRotation;
     }
 }

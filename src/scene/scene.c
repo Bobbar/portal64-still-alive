@@ -468,14 +468,13 @@ int sceneUpdatePortalListener(struct Scene* scene, int listenerIndex, int portal
     }
 
     // Get effective ear transform and velocity through portal
-    struct Transform portalTransform;
-    collisionSceneGetPortalTransform(portalIndex, &portalTransform);
+    struct Transform* portalTransform = collisionSceneTransformToOtherPortal(portalIndex);
 
     struct Transform listenTransform;
     struct Vector3 listenVelocity;
     struct Vector3 listenRight;
-    transformConcat(&portalTransform, &scene->player.lookTransform, &listenTransform);
-    quatMultVector(&portalTransform.rotation, &scene->player.body.velocity, &listenVelocity);
+    transformConcat(portalTransform, &scene->player.lookTransform, &listenTransform);
+    quatMultVector(&portalTransform->rotation, &scene->player.body.velocity, &listenVelocity);
     quatMultVector(&listenTransform.rotation, &gRight, &listenRight);
 
     // Effective position depends on side of portal
@@ -488,7 +487,7 @@ int sceneUpdatePortalListener(struct Scene* scene, int listenerIndex, int portal
         // player closer to sounds. Noticeable at chamber 0 start.
 
         struct Vector3 rotatedPortalNormal;
-        quatMultVector(&portalTransform.rotation, &portalNormal, &rotatedPortalNormal);
+        quatMultVector(&portalTransform->rotation, &portalNormal, &rotatedPortalNormal);
 
         vector3AddScaled(&listenTransform.position, &rotatedPortalNormal, -2.0f * portalNormalDist, &listenTransform.position);
         vector3AddScaled(&listenVelocity, &rotatedPortalNormal, -2.0f * vector3Dot(&listenVelocity, &rotatedPortalNormal), &listenVelocity);
@@ -1079,8 +1078,7 @@ int sceneClosePortal(struct Scene* scene, int portalIndex, int playSound) {
             hudShowSubtitle(&gScene.hud, PORTAL_FIZZLE_MOVED, SubtitleTypeCaption);
         }
 
-        gCollisionScene.portalTransforms[portalIndex] = NULL;
-        gCollisionScene.portalColliderIndex[portalIndex] = -1;
+        collisionSceneSetPortal(portalIndex, NULL, -1, -1);
         scene->portals[portalIndex].portalSurfaceIndex = -1;
         scene->portals[portalIndex].transformIndex = NO_TRANSFORM_INDEX;
 

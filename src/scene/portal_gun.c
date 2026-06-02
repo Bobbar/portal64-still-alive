@@ -179,7 +179,7 @@ void portalGunUpdatePosition(struct PortalGun* portalGun, struct Player* player)
     if (player->passedThroughPortal) {
         int portalIndex = player->passedThroughPortal - 1;
 
-        struct Transform* transform = collisionSceneTransformToPortal(portalIndex);
+        struct Transform* transform = collisionSceneTransformToOtherPortal(portalIndex);
 
         if (transform) {
             struct Quaternion newRotation;
