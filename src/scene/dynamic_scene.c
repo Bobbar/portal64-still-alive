@@ -22,9 +22,10 @@ int dynamicSceneAdd(void* data, DynamicRender renderCallback, struct Vector3* po
 
             object->flags = DYNAMIC_SCENE_OBJECT_FLAGS_USED;
             object->data = data;
-            object->renderCallback = renderCallback;
             object->position = position;
             object->scaledRadius = radius * SCENE_SCALE;
+            object->preciseCullingCallback = NULL;
+            object->renderCallback = renderCallback;
             object->roomFlags = ~0;
             return i;
         }
@@ -35,14 +36,15 @@ int dynamicSceneAdd(void* data, DynamicRender renderCallback, struct Vector3* po
 
 int dynamicSceneAddViewDependent(void* data, DynamicViewRender renderCallback, struct Vector3* position, float radius) {
     for (int i = 0; i < MAX_VIEW_DEPENDENT_OBJECTS; ++i) {
-        struct DynamicSceneViewDependentObject* object = &gDynamicScene.viewDependentObjects[i];
+        struct DynamicSceneObject* object = &gDynamicScene.viewDependentObjects[i];
         if (!(object->flags & DYNAMIC_SCENE_OBJECT_FLAGS_USED)) {
 
             object->flags = DYNAMIC_SCENE_OBJECT_FLAGS_USED;
             object->data = data;
-            object->renderCallback = renderCallback;
             object->position = position;
             object->scaledRadius = radius * SCENE_SCALE;
+            object->preciseCullingCallback = NULL;
+            object->viewRenderCallback = renderCallback;
             object->roomFlags = ~0;
             return i + MAX_DYNAMIC_SCENE_OBJECTS;
         }
@@ -75,66 +77,64 @@ int dynamicSceneViewDependentObjectCount() {
     return count;
 }
 
-void dynamicSceneRemove(int id) {
+static struct DynamicSceneObject* dynamicSceneGetObject(int id) {
     if (id < 0) {
-        return;
+        return NULL;
     }
 
     if (id < MAX_DYNAMIC_SCENE_OBJECTS) {
-        gDynamicScene.objects[id].flags = 0;
+        return &gDynamicScene.objects[id];
     }
 
     id -= MAX_DYNAMIC_SCENE_OBJECTS;
-
     if (id < MAX_VIEW_DEPENDENT_OBJECTS) {
-        gDynamicScene.viewDependentObjects[id].flags = 0;
+        return &gDynamicScene.viewDependentObjects[id];
     }
+
+    return NULL;
+}
+
+void dynamicSceneRemove(int id) {
+    struct DynamicSceneObject* object = dynamicSceneGetObject(id);
+    if (object == NULL) {
+        return;
+    }
+
+    object->flags = 0;
 }
 
 void dynamicSceneSetFlags(int id, int flags) {
-    if (id < 0) {
+    struct DynamicSceneObject* object = dynamicSceneGetObject(id);
+    if (object == NULL) {
         return;
     }
 
-    if (id < MAX_DYNAMIC_SCENE_OBJECTS) {
-        gDynamicScene.objects[id].flags |= flags;
-    }
-
-    id -= MAX_DYNAMIC_SCENE_OBJECTS;
-
-    if (id < MAX_VIEW_DEPENDENT_OBJECTS) {
-        gDynamicScene.viewDependentObjects[id].flags |= flags;
-    }
+    object->flags |= flags;
 }
 
 void dynamicSceneClearFlags(int id, int flags) {
-    if (id < 0) {
+    struct DynamicSceneObject* object = dynamicSceneGetObject(id);
+    if (object == NULL) {
         return;
     }
 
-    if (id < MAX_DYNAMIC_SCENE_OBJECTS) {
-        gDynamicScene.objects[id].flags &= ~flags;
-    }
-
-    id -= MAX_DYNAMIC_SCENE_OBJECTS;
-
-    if (id < MAX_VIEW_DEPENDENT_OBJECTS) {
-        gDynamicScene.viewDependentObjects[id].flags &= ~flags;
-    }
+    object->flags &= ~flags;
 }
 
 void dynamicSceneSetRoomFlags(int id, u64 roomFlags) {
-    if (id < 0) {
+    struct DynamicSceneObject* object = dynamicSceneGetObject(id);
+    if (object == NULL) {
         return;
     }
 
-    if (id < MAX_DYNAMIC_SCENE_OBJECTS) {
-        gDynamicScene.objects[id].roomFlags = roomFlags;
+    object->roomFlags = roomFlags;
+}
+
+void dynamicSceneSetPreciseCullingCallback(int id, DynamicCull callback) {
+    struct DynamicSceneObject* object = dynamicSceneGetObject(id);
+    if (object == NULL) {
+        return;
     }
 
-    id -= MAX_DYNAMIC_SCENE_OBJECTS;
-
-    if (id < MAX_VIEW_DEPENDENT_OBJECTS) {
-        gDynamicScene.viewDependentObjects[id].roomFlags = roomFlags;
-    }
+    object->preciseCullingCallback = callback;
 }

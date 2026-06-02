@@ -187,7 +187,7 @@ void staticRender(struct RenderProps* renderStage, struct DynamicRenderDataList*
     struct RenderScene* renderScene = renderSceneNew(cameraTransform, renderState, *visibleRooms);
 
     staticRenderPopulateRooms(cullingInfo, staticMatrices, staticTransforms, renderScene);
-    dynamicRenderPopulateRenderScene(dynamicList, stageIndex, renderScene, cameraTransform, cullingInfo, *visibleRooms);
+    dynamicRenderPopulateRenderScene(dynamicList, stageIndex, renderScene);
     renderSceneGenerate(renderScene, renderState);
 
     renderStage->renderPartCount = renderScene->currentRenderPart;

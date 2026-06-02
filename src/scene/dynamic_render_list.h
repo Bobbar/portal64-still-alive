@@ -2,9 +2,10 @@
 #define __SCENE_DYNAMIC_RENDER_LIST_H__
 
 #include <ultra64.h>
-#include "../math/vector3.h"
+
+#include "graphics/render_scene.h"
+#include "math/vector3.h"
 #include "render_plan.h"
-#include "../graphics/render_scene.h"
 
 struct DynamicRenderData {
     Gfx* model;
@@ -15,28 +16,19 @@ struct DynamicRenderData {
     short renderStageCullingMask;
 };
 
-#define MAX_RENDER_STAGES   6
-
-struct DynamicRenderStageData {
-    short exitPortalView;
-    short parentStageIndex;
-};
-
 struct DynamicRenderDataList {
     struct RenderState* renderState;
     struct DynamicRenderData* renderData;
     short maxLength;
     short currentLength;
     short currentRenderStateCullingMask;
-    short stageCount;
-    struct DynamicRenderStageData stages[MAX_RENDER_STAGES];
+    short renderStageCount;
+    struct RenderProps* renderStages;
     float portalTransforms[2][4][4];
 };
 
-struct DynamicRenderDataList* dynamicRenderListNew(struct RenderState* renderState, int maxLength);
+struct DynamicRenderDataList* dynamicRenderListNew(struct RenderState* renderState, struct RenderProps* renderStages, int renderStageCount, int maxLength);
 void dynamicRenderListFree(struct DynamicRenderDataList* list);
-
-void dynamicRenderAddStage(struct DynamicRenderDataList* list, int exitPortalView, int parentStageIndex);
 
 void dynamicRenderListAddData(
     struct DynamicRenderDataList* list,
@@ -57,14 +49,11 @@ void dynamicRenderListAddDataTouchingPortal(
     int rigidBodyFlags
 );
 
-void dynamicRenderListPopulate(struct DynamicRenderDataList* list, struct RenderProps* stages, int stageCount, struct RenderState* renderState);
+void dynamicRenderListPopulate(struct DynamicRenderDataList* list);
 void dynamicRenderPopulateRenderScene(
-    struct DynamicRenderDataList* list, 
-    int stageIndex, 
-    struct RenderScene* renderScene, 
-    struct Transform* cameraTransform, 
-    struct FrustumCullingInformation* cullingInfo,
-    u64 visibleRooms
+    struct DynamicRenderDataList* list,
+    int stageIndex,
+    struct RenderScene* renderScene
 );
 
 #endif

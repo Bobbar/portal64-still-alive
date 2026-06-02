@@ -269,6 +269,8 @@ int renderPlanPortal(struct RenderPlan* renderPlan, struct Scene* scene, struct 
     struct Vector3 cameraForward;
     quatMultVector(&next->camera.transform.rotation, &gForward, &cameraForward);
 
+    // Decrease the near clipping plane (for rendering) so objects touching portals aren't cut off
+    // In the worst case, the camera is looking across the portal from one of its ends
     next->camera.nearPlane = (-vector3Dot(&portalOffset, &cameraForward)) * SCENE_SCALE - SCENE_SCALE * PORTAL_COVER_HEIGHT_RADIUS;
 
     if (next->camera.nearPlane < current->camera.nearPlane) {
@@ -292,7 +294,7 @@ int renderPlanPortal(struct RenderPlan* renderPlan, struct Scene* scene, struct 
         return flags;
     }
 
-    // set the near clipping plane to be the exit portal surface
+    // Set the near clipping plane (for culling) to be the exit portal surface
     struct Plane* nearPlane = &next->cameraMatrixInfo.cullingInformation.clippingPlanes[CLIPPING_PLANE_NEAR];
     quatMultVector(&exitPortal->rotation, &gForward, &nearPlane->normal);
     if (portalIndex == 1) {
@@ -338,7 +340,7 @@ void renderPlanDetermineFarPlane(struct Ray* cameraRay, struct RenderProps* prop
     }
 }
 
-int renderShouldRenderOtherPortal(struct Scene* scene, int visiblePortal, struct RenderProps* properties) {
+int renderShouldRenderPortal(struct Scene* scene, int visiblePortal, struct RenderProps* properties) {
     if (!gCollisionScene.portalTransforms[visiblePortal]) {
         return 0;
     }
@@ -399,8 +401,9 @@ void renderPlanFinishView(struct RenderPlan* renderPlan, struct Scene* scene, st
 
     for (int i = 0; i < 2; ++i) {
         if (properties->exitPortalIndex != closerPortal && 
-            renderShouldRenderOtherPortal(scene, closerPortal, properties) &&
-            staticRenderIsRoomVisible(properties->visiblerooms, gCollisionScene.portalRooms[closerPortal])) {
+            staticRenderIsRoomVisible(properties->visiblerooms, gCollisionScene.portalRooms[closerPortal]) &&
+            renderShouldRenderPortal(scene, closerPortal, properties)
+        ) {
 
             int planResult = renderPlanPortal(
                 renderPlan,
@@ -507,13 +510,13 @@ void renderPlanBuild(struct RenderPlan* renderPlan, struct Scene* scene, struct 
 extern LookAt gLookAt;
 
 void renderPlanExecute(struct RenderPlan* renderPlan, struct Scene* scene, Mtx* staticMatrices, struct Transform* staticTransforms, struct RenderState* renderState, struct GraphicsTask* task) {
-    struct DynamicRenderDataList* dynamicList = dynamicRenderListNew(renderState, MAX_DYNAMIC_SCENE_OBJECTS);
-
-    for (int i = 0; i < renderPlan->stageCount; ++i) {
-        dynamicRenderAddStage(dynamicList, renderPlan->stageProps[i].exitPortalIndex, renderPlan->stageProps[i].parentStageIndex);
-    }
-
-    dynamicRenderListPopulate(dynamicList, renderPlan->stageProps, renderPlan->stageCount, renderState);
+    struct DynamicRenderDataList* dynamicList = dynamicRenderListNew(
+        renderState,
+        renderPlan->stageProps,
+        renderPlan->stageCount,
+        MAX_DYNAMIC_SCENE_OBJECTS
+    );
+    dynamicRenderListPopulate(dynamicList);
 
     for (int stageIndex = renderPlan->stageCount - 1; stageIndex >= 0; --stageIndex) {
         struct RenderProps* current = &renderPlan->stageProps[stageIndex];

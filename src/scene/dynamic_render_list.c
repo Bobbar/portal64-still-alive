@@ -1,20 +1,21 @@
 #include "dynamic_render_list.h"
 
 #include "dynamic_scene.h"
-#include "../util/memory.h"
-#include "../physics/collision_scene.h"
-#include "../savefile/savefile.h"
+#include "physics/collision_scene.h"
+#include "savefile/savefile.h"
+#include "util/memory.h"
 
 extern struct DynamicScene gDynamicScene;
 
-struct DynamicRenderDataList* dynamicRenderListNew(struct RenderState* renderState, int maxLength) {
+struct DynamicRenderDataList* dynamicRenderListNew(struct RenderState* renderState, struct RenderProps* renderStages, int renderStageCount, int maxLength) {
     struct DynamicRenderDataList* result = stackMalloc(sizeof(struct DynamicRenderDataList));
     result->renderState = renderState;
     result->renderData = stackMalloc(sizeof(struct DynamicRenderData) * maxLength);
     result->maxLength = maxLength;
     result->currentLength = 0;
     result->currentRenderStateCullingMask = 0;
-    result->stageCount = 0;
+    result->renderStageCount = renderStageCount;
+    result->renderStages = renderStages;
 
     if (collisionSceneIsPortalOpen()) {
         transformToMatrix(collisionSceneTransformToOtherPortal(0), result->portalTransforms[0], SCENE_SCALE);
@@ -25,18 +26,6 @@ struct DynamicRenderDataList* dynamicRenderListNew(struct RenderState* renderSta
     }
 
     return result;
-}
-
-
-void dynamicRenderAddStage(struct DynamicRenderDataList* list, int exitPortalView, int parentStageIndex) {
-    if (list->stageCount >= MAX_RENDER_STAGES) {
-        return;
-    }
-
-    list->stages[list->stageCount].exitPortalView = exitPortalView;
-    list->stages[list->stageCount].parentStageIndex = parentStageIndex;
-
-    ++list->stageCount;
 }
 
 void dynamicRenderListFree(struct DynamicRenderDataList* list) {
@@ -88,12 +77,14 @@ void dynamicRenderListAddDataTouchingPortal(
     int touchingPortalIndex = (portalFlags & (RigidBodyIsTouchingPortalA | RigidBodyWasTouchingPortalA)) ? 0 : 1;
 
     // Start at 1 because stage 0 has no parents
-    for (int i = 1; i < list->stageCount; ++i) {
-        if (list->stages[i].exitPortalView == touchingPortalIndex) {
+    for (int i = 1; i < list->renderStageCount; ++i) {
+        struct RenderProps* stage = &list->renderStages[i];
+
+        if (stage->exitPortalIndex == touchingPortalIndex) {
             // If object is touching an exit portal, draw from parent view
             // (makes it not disappear moving out of portal before crossing)
-            cullingMask |= (1 << list->stages[i].parentStageIndex);
-        } else if (!(rigidBodyFlags & RigidBodyIsPlayer) || list->stages[i].parentStageIndex != 0) {
+            cullingMask |= (1 << stage->parentStageIndex);
+        } else if (!(rigidBodyFlags & RigidBodyIsPlayer) || stage->parentStageIndex != 0) {
             // If object is touching an entrance portal, draw from child view
             // (makes it not disappear moving into portal before crossing)
             cullingMask |= 1 << i;
@@ -125,7 +116,30 @@ void dynamicRenderListAddDataTouchingPortal(
     next->renderStageCullingMask = cullingMask;
 }
 
-void dynamicRenderListPopulate(struct DynamicRenderDataList* list, struct RenderProps* stages, int stageCount, struct RenderState* renderState) {
+static int isDynamicObjectCulled(struct DynamicSceneObject* object, struct Vector3* scaledPos, struct RenderProps* renderStage) {
+    // Coarse culling
+    if (isSphereOutsideFrustum(&renderStage->cameraMatrixInfo.cullingInformation, scaledPos, object->scaledRadius)) {
+        return 1;
+    }
+
+    // The coarse bounding sphere can clip through the back of portals.
+    // Check more precisely when near the exit portal, to avoid showing
+    // from behind when viewing from the parent stage.
+    if (object->preciseCullingCallback &&
+        renderStage->currentDepth < gSaveData.gameplay.portalRenderDepth
+    ) {
+        struct Vector3* portalPos = &gCollisionScene.portalTransforms[renderStage->exitPortalIndex]->position;
+        float distThreshold = (object->scaledRadius / SCENE_SCALE) + PORTAL_COVER_HEIGHT_RADIUS;
+
+        if (vector3DistSqrd(portalPos, object->position) <= (distThreshold * distThreshold)) {
+            return object->preciseCullingCallback(object->data, &renderStage->cameraMatrixInfo.cullingInformation);
+        }
+    }
+
+    return 0;
+}
+
+void dynamicRenderListPopulate(struct DynamicRenderDataList* list) {
     for (int i = 0; i < MAX_DYNAMIC_SCENE_OBJECTS; ++i) {
         struct DynamicSceneObject* object = &gDynamicScene.objects[i];
 
@@ -138,16 +152,18 @@ void dynamicRenderListPopulate(struct DynamicRenderDataList* list, struct Render
         struct Vector3 scaledPos;
         vector3Scale(object->position, &scaledPos, SCENE_SCALE);
 
-        for (int stageIndex = 0; stageIndex < stageCount; ++stageIndex) {
-            if ((stages[stageIndex].visiblerooms & object->roomFlags) == 0) {
+        for (int stageIndex = 0; stageIndex < list->renderStageCount; ++stageIndex) {
+            struct RenderProps* stage = &list->renderStages[stageIndex];
+
+            if ((stage->visiblerooms & object->roomFlags) == 0) {
                 continue;
             }
 
-            if (stages[stageIndex].currentDepth == gSaveData.gameplay.portalRenderDepth && (object->flags & DYNAMIC_SCENE_OBJECT_SKIP_ROOT)) {
+            if (stage->currentDepth == gSaveData.gameplay.portalRenderDepth && (object->flags & DYNAMIC_SCENE_OBJECT_SKIP_ROOT)) {
                 continue;
             }
 
-            if (isSphereOutsideFrustum(&stages[stageIndex].cameraMatrixInfo.cullingInformation, &scaledPos, object->scaledRadius)) {
+            if (isDynamicObjectCulled(object, &scaledPos, stage)) {
                 continue;
             }
 
@@ -160,17 +176,14 @@ void dynamicRenderListPopulate(struct DynamicRenderDataList* list, struct Render
 
         list->currentRenderStateCullingMask = visibleStages;
 
-        object->renderCallback(object->data, list, renderState);
+        object->renderCallback(object->data, list, list->renderState);
     }
 }
 
 void dynamicRenderPopulateRenderScene(
-    struct DynamicRenderDataList* list, 
-    int stageIndex, 
-    struct RenderScene* renderScene, 
-    struct Transform* cameraTransform, 
-    struct FrustumCullingInformation* cullingInfo,
-    u64 visiblerooms
+    struct DynamicRenderDataList* list,
+    int stageIndex,
+    struct RenderScene* renderScene
 ) {
     int stageMask = (1 << stageIndex);
     for (int i = 0; i < list->currentLength; ++i) {
@@ -183,24 +196,26 @@ void dynamicRenderPopulateRenderScene(
         renderSceneAdd(renderScene, current->model, current->transform, current->materialIndex, &current->position, current->armature);
     }
 
+    struct RenderProps* stage = &list->renderStages[stageIndex];
+
     for (int i = 0; i < MAX_VIEW_DEPENDENT_OBJECTS; ++i) {
-        struct DynamicSceneViewDependentObject* object = &gDynamicScene.viewDependentObjects[i];
+        struct DynamicSceneObject* object = &gDynamicScene.viewDependentObjects[i];
 
         if (!(object->flags & DYNAMIC_SCENE_OBJECT_FLAGS_USED)) {
             continue;
         }
 
-        if ((visiblerooms & object->roomFlags) == 0) {
+        if ((stage->visiblerooms & object->roomFlags) == 0) {
             continue;
         }
 
         struct Vector3 scaledPos;
         vector3Scale(object->position, &scaledPos, SCENE_SCALE);
 
-        if (isSphereOutsideFrustum(cullingInfo, &scaledPos, object->scaledRadius)) {
+        if (isDynamicObjectCulled(object, &scaledPos, stage)) {
             continue;
         }
 
-        object->renderCallback(object->data, renderScene, cameraTransform);
+        object->viewRenderCallback(object->data, renderScene, &stage->camera.transform);
     }
 }

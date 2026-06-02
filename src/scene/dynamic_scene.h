@@ -8,6 +8,7 @@
 
 struct DynamicRenderDataList;
 
+typedef int  (*DynamicCull)(void* data, struct FrustumCullingInformation* frustum);
 typedef void (*DynamicRender)(void* data, struct DynamicRenderDataList* renderList, struct RenderState* renderState);
 typedef void (*DynamicViewRender)(void* data, struct RenderScene* renderScene, struct Transform* fromView);
 
@@ -23,25 +24,20 @@ typedef void (*DynamicViewRender)(void* data, struct RenderScene* renderScene, s
 
 struct DynamicSceneObject {
     void* data;
-    DynamicRender renderCallback;
     struct Vector3* position;
     float scaledRadius;
-    u16 flags;
-    u64 roomFlags;
-};
-
-struct DynamicSceneViewDependentObject {
-    void* data;
-    DynamicViewRender renderCallback;
-    struct Vector3* position;
-    float scaledRadius;
+    DynamicCull preciseCullingCallback;
+    union {
+        DynamicRender renderCallback;           // For objects
+        DynamicViewRender viewRenderCallback;   // For viewDependentObjects
+    };
     u16 flags;
     u64 roomFlags;
 };
 
 struct DynamicScene {
     struct DynamicSceneObject objects[MAX_DYNAMIC_SCENE_OBJECTS];
-    struct DynamicSceneViewDependentObject viewDependentObjects[MAX_VIEW_DEPENDENT_OBJECTS];
+    struct DynamicSceneObject viewDependentObjects[MAX_VIEW_DEPENDENT_OBJECTS];
 };
 
 void dynamicSceneInit();
@@ -56,6 +52,7 @@ void dynamicSceneSetFlags(int id, int flags);
 void dynamicSceneClearFlags(int id, int flags);
 
 void dynamicSceneSetRoomFlags(int id, u64 roomFlags);
+void dynamicSceneSetPreciseCullingCallback(int id, DynamicCull callback);
 
 void dynamicRenderListAddData(
     struct DynamicRenderDataList* list,
