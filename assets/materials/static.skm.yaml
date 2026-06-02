@@ -1844,7 +1844,7 @@ materials:
       siz: G_IM_SIZ_4b
       fmt: G_IM_FMT_I
 
-    gDPSetCombineMode: G_CC_DECALRGB
+    gDPSetCombineMode: G_CC_DECALRGBA
     gDPSetCycleType: G_CYC_1CYCLE
     gDPSetRenderMode: G_RM_RA_ZB_OPA_DECAL
 
@@ -1950,7 +1950,7 @@ materials:
       siz: G_IM_SIZ_4b
       fmt: G_IM_FMT_I
 
-    gDPSetCombineMode: G_CC_DECALRGB
+    gDPSetCombineMode: G_CC_DECALRGBA
     gDPSetCycleType: G_CYC_1CYCLE
     gDPSetRenderMode: G_RM_RA_ZB_OPA_DECAL
 

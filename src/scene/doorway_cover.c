@@ -116,6 +116,11 @@ static void doorwayCoverRender(void* data, struct RenderScene* renderScene, stru
     );
 }
 
+static int doorwayCoverIsCulled(void* data, struct FrustumCullingInformation* frustum) {
+    struct DoorwayCover* cover = (struct DoorwayCover*)data;
+    return isQuadOutsideFrustum(frustum, &cover->forDoorway->quad);
+}
+
 void doorwayCoverInit(struct DoorwayCover* cover, struct DoorwayCoverDefinition* definition, struct World* world) {
     cover->forDoorway = &world->doorways[definition->doorwayIndex];
     cover->roomFlags = ROOM_FLAG_FROM_INDEX(cover->forDoorway->roomA) | ROOM_FLAG_FROM_INDEX(cover->forDoorway->roomB);
@@ -127,6 +132,7 @@ void doorwayCoverInit(struct DoorwayCover* cover, struct DoorwayCoverDefinition*
     ) * 0.5f;
     cover->dynamicId = dynamicSceneAddViewDependent(cover, doorwayCoverRender, &definition->position, radius);
     dynamicSceneSetRoomFlags(cover->dynamicId, cover->roomFlags);
+    dynamicSceneSetPreciseCullingCallback(cover->dynamicId, doorwayCoverIsCulled);
 }
 
 int doorwayCoverIsOpaqueFromView(struct DoorwayCover* cover, struct Vector3* viewPosition) {
