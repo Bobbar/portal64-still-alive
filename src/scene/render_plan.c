@@ -363,10 +363,31 @@ int renderShouldRenderPortal(struct Scene* scene, int visiblePortal, struct Rend
         return 0;
     }
 
-    struct Vector3 sceneScalePos;
-    vector3Scale(&gCollisionScene.portalTransforms[visiblePortal]->position, &sceneScalePos, SCENE_SCALE);
+    // The coarse bounding box can clip through the back of the other portal.
+    // Check more precisely when in a child view to avoid showing from behind.
+    if (properties->currentDepth < gSaveData.gameplay.portalRenderDepth) {
+        struct Basis* portalBasis = &portal->rigidBody.rotationBasis;
+        struct Plane* nearPlane = &properties->cameraMatrixInfo.cullingInformation.clippingPlanes[CLIPPING_PLANE_NEAR];
+        struct Vector3 closestPoint;
 
-    return planePointDistance(&properties->cameraMatrixInfo.cullingInformation.clippingPlanes[CLIPPING_PLANE_NEAR], &sceneScalePos) >= -0.1f * SCENE_SCALE;
+        vector3AddScaled(
+            &gCollisionScene.portalTransforms[visiblePortal]->position,
+            &portalBasis->x,
+            signf(vector3Dot(&nearPlane->normal, &portalBasis->x)) * PORTAL_COVER_WIDTH_RADIUS,
+            &closestPoint
+        );
+        vector3AddScaled(
+            &closestPoint,
+            &portalBasis->y,
+            signf(vector3Dot(&nearPlane->normal, &portalBasis->y)) * PORTAL_COVER_HEIGHT_RADIUS,
+            &closestPoint
+        );
+        vector3Scale(&closestPoint, &closestPoint, SCENE_SCALE);
+
+        return planePointDistance(nearPlane, &closestPoint) >= 0.0f;
+    }
+
+    return 1;
 }
 
 void renderPlanFinishView(struct RenderPlan* renderPlan, struct Scene* scene, struct RenderProps* properties, struct RenderState* renderState) {
