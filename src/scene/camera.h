@@ -41,7 +41,7 @@ struct CameraMatrixInfo {
 };
 
 enum FrustumResult {
-    FrustumResultOutisde,
+    FrustumResultOutside,
     FrustumResultInside,
     FrustumResultBoth,
 };

@@ -23,7 +23,7 @@ void staticRenderTraverseIndex(
         if (box >= fullyVisibleEnd) {
             enum FrustumResult cullResult = isOutsideFrustum(cullingInfo, &box->box);
 
-            if (cullResult == FrustumResultOutisde) {
+            if (cullResult == FrustumResultOutside) {
                 // skip all children
                 box = box + box->siblingOffset;
                 continue;

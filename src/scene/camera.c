@@ -64,7 +64,7 @@ enum FrustumResult isOutsideFrustum(struct FrustumCullingInformation* frustum, s
         closestPoint.z = normal->z < 0.0f ? boundingBox->minZ : boundingBox->maxZ;
 
         if (planePointDistance(&frustum->clippingPlanes[i], &closestPoint) < 0.00001f) {
-            return FrustumResultOutisde;
+            return FrustumResultOutside;
         }
 
         if (result == FrustumResultBoth) {

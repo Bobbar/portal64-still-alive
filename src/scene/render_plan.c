@@ -345,7 +345,7 @@ int renderShouldRenderPortal(struct Scene* scene, int visiblePortal, struct Rend
         return 0;
     }
 
-    if ((scene->player.body.flags & (RigidBodyIsTouchingPortalA << visiblePortal)) != 0 && properties->currentDepth == gSaveData.gameplay.portalRenderDepth) {
+    if ((scene->player.body.flags & (RigidBodyIsTouchingPortalA << visiblePortal)) && properties->currentDepth == gSaveData.gameplay.portalRenderDepth) {
         return 1;
     }
 
@@ -359,7 +359,7 @@ int renderShouldRenderPortal(struct Scene* scene, int visiblePortal, struct Rend
     portalBox.maxY = (s16)(portal->collisionObject.boundingBox.max.y * SCENE_SCALE);
     portalBox.maxZ = (s16)(portal->collisionObject.boundingBox.max.z * SCENE_SCALE);
 
-    if (isOutsideFrustum(&properties->cameraMatrixInfo.cullingInformation, &portalBox) == FrustumResultOutisde) {
+    if (isOutsideFrustum(&properties->cameraMatrixInfo.cullingInformation, &portalBox) == FrustumResultOutside) {
         return 0;
     }
 
