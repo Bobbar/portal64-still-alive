@@ -167,7 +167,7 @@ GDB. For example:
     "type": "shell",
     "command": "/path/to/ares",
     "args": [
-        "--system", "n64",
+        "--system", "Nintendo 64",
         "${workspaceFolder}/build/portal.z64"
     ],
     "isBackground": true,
