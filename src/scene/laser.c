@@ -159,7 +159,7 @@ void laserUpdate(struct Laser* laser) {
         if (!touchingPortals) {
             break;
         } else {
-            int portalIndex = (touchingPortals & RigidBodyIsTouchingPortalA) ? 0 : 1;
+            int portalIndex = (touchingPortals & RigidBodyIsTouchingPortal0) ? 0 : 1;
 
             currentRoom = gCollisionScene.portalRooms[1 - portalIndex];
             startPosition.origin = hit.at;

@@ -345,7 +345,7 @@ int renderShouldRenderPortal(struct Scene* scene, int visiblePortal, struct Rend
         return 0;
     }
 
-    if ((scene->player.body.flags & (RigidBodyIsTouchingPortalA << visiblePortal)) && properties->currentDepth == gSaveData.gameplay.portalRenderDepth) {
+    if ((scene->player.body.flags & (RigidBodyIsTouchingPortal0 << visiblePortal)) && properties->currentDepth == gSaveData.gameplay.portalRenderDepth) {
         return 1;
     }
 

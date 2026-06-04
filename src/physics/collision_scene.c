@@ -219,7 +219,7 @@ int collisionSceneIsTouchingPortal(struct Vector3* contactPoint, struct Vector3*
 
     for (int i = 0; i < 2; ++i) {
         if (collisionSceneIsTouchingSinglePortal(contactPoint, contactNormal, gCollisionScene.portalTransforms[i], i)) {
-            return RigidBodyIsTouchingPortalA << i;
+            return RigidBodyIsTouchingPortal0 << i;
         }
     }
 
@@ -296,7 +296,7 @@ void collisionScenePushObjectsOutOfPortal(int portalIndex) {
     for (unsigned i = 0; i < gCollisionScene.dynamicObjectCount; ++i) {
         struct CollisionObject* object = gCollisionScene.dynamicObjects[i];
 
-        if (!(object->body->flags & ((RigidBodyIsTouchingPortalA | RigidBodyWasTouchingPortalA) << portalIndex))) {
+        if (!(object->body->flags & ((RigidBodyIsTouchingPortal0 | RigidBodyWasTouchingPortal0) << portalIndex))) {
             continue;
         }
 
@@ -843,15 +843,15 @@ void collisionSceneUpdateDynamics() {
             continue;
         }
 
-        if (object->body->flags & (RigidBodyIsTouchingPortalA | RigidBodyWasTouchingPortalA)) {
+        if (object->body->flags & RigidBodyWasTouchingPortal0) {
             if (collisionSceneObjectIsTouchingPortal(object, 0)) {
-                object->body->flags |= RigidBodyIsTouchingPortalA;
+                object->body->flags |= RigidBodyIsTouchingPortal0;
             }
         }
 
-        if (object->body->flags & (RigidBodyIsTouchingPortalB | RigidBodyWasTouchingPortalB)) {
+        if (object->body->flags & RigidBodyWasTouchingPortal1) {
             if (collisionSceneObjectIsTouchingPortal(object, 1)) {
-                object->body->flags |= RigidBodyIsTouchingPortalB;
+                object->body->flags |= RigidBodyIsTouchingPortal1;
             }
         }
 

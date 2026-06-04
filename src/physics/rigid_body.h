@@ -24,10 +24,10 @@ enum RigidBodyFlags {
     RigidBodyFlagsCrossedPortal0  = (1 << 3),
     RigidBodyFlagsCrossedPortal1  = (1 << 4),
     RigidBodyFlagsGrabbable       = (1 << 5),
-    RigidBodyIsTouchingPortalA    = (1 << 6),
-    RigidBodyIsTouchingPortalB    = (1 << 7),
-    RigidBodyWasTouchingPortalA   = (1 << 8),
-    RigidBodyWasTouchingPortalB   = (1 << 9),
+    RigidBodyIsTouchingPortal0    = (1 << 6),
+    RigidBodyIsTouchingPortal1    = (1 << 7),
+    RigidBodyWasTouchingPortal0   = (1 << 8),
+    RigidBodyWasTouchingPortal1   = (1 << 9),
 
     RigidBodyIsKinematic          = (1 << 10),
     RigidBodyIsPlayer             = (1 << 11),  // Force contact generation

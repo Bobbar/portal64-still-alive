@@ -67,14 +67,14 @@ void dynamicRenderListAddDataTouchingPortal(
 ) {
     dynamicRenderListAddData(list, model, transform, materialIndex, position, armature);
 
-    int portalFlags = rigidBodyFlags & (RigidBodyIsTouchingPortalA | RigidBodyWasTouchingPortalA | RigidBodyIsTouchingPortalB | RigidBodyWasTouchingPortalB);
+    int portalFlags = rigidBodyFlags & (RigidBodyIsTouchingPortal0 | RigidBodyWasTouchingPortal0 | RigidBodyIsTouchingPortal1 | RigidBodyWasTouchingPortal1);
     if (!portalFlags) {
         return;
     }
 
     // Find render stages where clone should be shown
     short cullingMask = 0;
-    int touchingPortalIndex = (portalFlags & (RigidBodyIsTouchingPortalA | RigidBodyWasTouchingPortalA)) ? 0 : 1;
+    int touchingPortalIndex = (portalFlags & (RigidBodyIsTouchingPortal0 | RigidBodyWasTouchingPortal0)) ? 0 : 1;
 
     // Start at 1 because stage 0 has no parents
     for (int i = 1; i < list->renderStageCount; ++i) {
