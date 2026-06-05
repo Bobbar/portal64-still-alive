@@ -208,7 +208,6 @@ int rigidBodyCheckPortals(struct RigidBody* rigidBody) {
         if (speedSqrd < MIN_PORTAL_SPEED * MIN_PORTAL_SPEED) {
             struct Vector3 otherPortalNormal;
             collisionSceneGetPortalNormal(1 - i, &otherPortalNormal);
-            quatMultVector(&otherPortalTransform->rotation, &otherPortalNormal, &otherPortalNormal);
 
             if (otherPortalNormal.y > 0.9f) {
                 if (speedSqrd < 0.000001f) {
