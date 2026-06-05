@@ -478,16 +478,15 @@ int sceneUpdatePortalListener(struct Scene* scene, int listenerIndex, int portal
     quatMultVector(&listenTransform.rotation, &gRight, &listenRight);
 
     // Effective position depends on side of portal
-    struct Vector3 portalNormal;
-    collisionSceneGetPortalNormal(portalIndex, &portalNormal);
+    struct Vector3* portalNormal = collisionSceneGetPortalNormal(portalIndex);
 
-    float portalNormalDist = vector3Dot(&portalToPlayer, &portalNormal);
+    float portalNormalDist = vector3Dot(&portalToPlayer, portalNormal);
     if (portalNormalDist < 0.0f) {
         // Mirror across portal so standing behind doesn't put the
         // player closer to sounds. Noticeable at chamber 0 start.
 
         struct Vector3 rotatedPortalNormal;
-        quatMultVector(&portalTransform->rotation, &portalNormal, &rotatedPortalNormal);
+        quatMultVector(&portalTransform->rotation, portalNormal, &rotatedPortalNormal);
 
         vector3AddScaled(&listenTransform.position, &rotatedPortalNormal, -2.0f * portalNormalDist, &listenTransform.position);
         vector3AddScaled(&listenVelocity, &rotatedPortalNormal, -2.0f * vector3Dot(&listenVelocity, &rotatedPortalNormal), &listenVelocity);

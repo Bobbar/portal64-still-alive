@@ -22,6 +22,7 @@ struct CollisionScene {
     struct Transform* portalTransforms[2];
     struct Transform toOtherPortalTransform[2];
     struct Vector3 portalVelocity[2];
+    struct Plane portalPlanes[2];
     struct CollisionObject* dynamicObjects[MAX_DYNAMIC_COLLISION];
     u16 dynamicObjectCount;
     u16 quadCount;
@@ -32,17 +33,16 @@ extern struct CollisionScene gCollisionScene;
 void collisionSceneInit(struct CollisionScene* scene, struct CollisionObject* quads, int quadCount, struct World* world);
 void collisionObjectCollideMixed(struct CollisionObject* object, struct Vector3* objectPrevPos, struct Box3D* sweptBB, struct CollisionScene* scene, struct ContactSolver* contactSolver);
 void collisionObjectCollidePairMixed(struct CollisionObject* a, struct Vector3* aPrevPos, struct Box3D* sweptA, struct CollisionObject* b, struct Vector3* bPrevPos, struct Box3D* sweptB, struct ContactSolver* contactSolver);
-
 int collisionObjectCollideShapeCast(struct CollisionObject* object, struct Vector3* offset, struct CollisionScene* scene, struct Vector3* finalLocation);
 
 int collisionSceneIsTouchingSinglePortal(struct Vector3* contactPoint, struct Vector3* contactNormal, struct Transform* portalTransform, int portalIndex);
 int collisionSceneIsTouchingPortal(struct Vector3* contactPoint, struct Vector3* contactNormal);
 int collisionSceneObjectIsTouchingPortal(struct CollisionObject* object, int portalIndex);
-int collisionSceneIsPortalOpen();
 
+int collisionSceneIsPortalOpen();
 void collisionSceneSetPortal(int portalIndex, struct Transform* transform, int roomIndex, int colliderIndex);
 struct Transform* collisionSceneTransformToOtherPortal(int fromPortal);
-void collisionSceneGetPortalNormal(int portalIndex, struct Vector3* out);
+struct Vector3* collisionSceneGetPortalNormal(int portalIndex);
 
 void collisionScenePushObjectsOutOfPortal(int portalIndex);
 void collisionSceneCheckUnwokenObjectsNearPortal(int portalIndex);
