@@ -186,19 +186,23 @@ int collisionObjectCollideShapeCast(struct CollisionObject* object, struct Vecto
     return result;
 }
 
+static int collisionSceneIsPortalLocalPointInBounds(struct Vector3* localPoint) {
+    if (fabsf(localPoint->z) > PORTAL_THICKNESS) {
+        return 0;
+    }
+
+    localPoint->x *= (1.0f / PORTAL_COVER_WIDTH_RADIUS);
+    localPoint->y *= (1.0f / PORTAL_COVER_HEIGHT_RADIUS);
+    localPoint->z = 0.0f;
+
+    return vector3MagSqrd(localPoint) < 1.0f;
+}
+
 int collisionSceneIsTouchingSinglePortal(struct Vector3* contactPoint, struct Vector3* contactNormal, int portalIndex) {
     struct Vector3 localPoint;
     transformPointInverseNoScale(gCollisionScene.portalTransforms[portalIndex], contactPoint, &localPoint);
 
-    if (fabsf(localPoint.z) > PORTAL_THICKNESS) {
-        return 0;
-    }
-
-    localPoint.x *= (1.0f / PORTAL_COVER_WIDTH_RADIUS);
-    localPoint.y *= (1.0f / PORTAL_COVER_HEIGHT_RADIUS);
-    localPoint.z = 0.0f;
-
-    if (vector3MagSqrd(&localPoint) >= 1.0f) {
+    if (!collisionSceneIsPortalLocalPointInBounds(&localPoint)) {
         return 0;
     }
 
@@ -261,6 +265,37 @@ int collisionSceneObjectIsTouchingPortal(struct CollisionObject* object, int por
         portalTransform, portalMinkowskiSupport,
         &direction
     );
+}
+
+int collisionSceneObjectIsTouchingBehindPortal(struct CollisionObject* object, struct Vector3* contactPoint) {
+    if (!collisionSceneIsPortalOpen()) {
+        return 0;
+    }
+
+    for (int i = 0; i < 2; ++i) {
+        if (!(object->body->flags & (RigidBodyFlagsInFrontPortal0 << i)) ||
+            planePointDistance(&gCollisionScene.portalPlanes[i], contactPoint) > -0.001f
+        ) {
+            continue;
+        }
+
+        struct Vector3 crossing;
+        vector3Sub(&object->body->transform.position, contactPoint, &crossing);
+
+        float distance;
+        if (!planeRayIntersection(&gCollisionScene.portalPlanes[i], contactPoint, &crossing, &distance)) {
+            continue;
+        }
+
+        vector3AddScaled(contactPoint, &crossing, distance, &crossing);
+        transformPointInverseNoScale(gCollisionScene.portalTransforms[i], &crossing, &crossing);
+
+        if (collisionSceneIsPortalLocalPointInBounds(&crossing)) {
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 int collisionSceneIsPortalOpen() {

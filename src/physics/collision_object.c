@@ -91,6 +91,10 @@ struct ContactManifold* collisionObjectCollideWithQuad(struct CollisionObject* o
         }
     }
 
+    if (collisionSceneObjectIsTouchingBehindPortal(object, &result.contactA)) {
+        return NULL;
+    }
+
     struct ContactManifold* contact = contactSolverGetContactManifold(contactSolver, quadObject, object);
 
     if (!contact) {
@@ -191,6 +195,10 @@ enum SweptCollideResult collisionObjectSweptCollide(
         }
     }
 
+    if (collisionSceneObjectIsTouchingBehindPortal(object, &result->contactA)) {
+        return SweptCollideResultMiss;
+    }
+
     return SweptCollideResultHit;
 }
 
@@ -280,7 +288,6 @@ void collisionObjectCollideTwoObjects(struct CollisionObject* a, struct Collisio
     );
 
     int touchingPortals = collisionSceneIsTouchingPortal(&result.contactA, &result.normal);
-
     if (touchingPortals) {
         b->body->flags |= touchingPortals;
         return;
@@ -290,12 +297,17 @@ void collisionObjectCollideTwoObjects(struct CollisionObject* a, struct Collisio
     vector3Negate(&result.normal, &minusNormal);
     
     touchingPortals = collisionSceneIsTouchingPortal(&result.contactB, &minusNormal);
-
     if (touchingPortals) {
         a->body->flags |= touchingPortals;
         return;
     }
 
+    if (collisionSceneObjectIsTouchingBehindPortal(b, &result.contactA)) {
+        return;
+    }
+    if (collisionSceneObjectIsTouchingBehindPortal(a, &result.contactB)) {
+        return;
+    }
 
     struct ContactManifold* contact = contactSolverGetContactManifold(contactSolver, a, b);
 
@@ -415,7 +427,6 @@ void collisionObjectCollideTwoObjectsSwept(
 
     // determine if a portal was hit
     int touchingPortals = collisionSceneIsTouchingPortal(&result.contactA, &result.normal);
-
     if (touchingPortals) {
         b->body->flags |= touchingPortals;
         return;
@@ -425,9 +436,15 @@ void collisionObjectCollideTwoObjectsSwept(
     vector3Negate(&result.normal, &minusNormal);
     
     touchingPortals = collisionSceneIsTouchingPortal(&result.contactB, &minusNormal);
-
     if (touchingPortals) {
         a->body->flags |= touchingPortals;
+        return;
+    }
+
+    if (collisionSceneObjectIsTouchingBehindPortal(b, &result.contactA)) {
+        return;
+    }
+    if (collisionSceneObjectIsTouchingBehindPortal(a, &result.contactB)) {
         return;
     }
 

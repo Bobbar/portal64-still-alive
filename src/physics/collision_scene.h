@@ -39,6 +39,7 @@ int collisionSceneIsTouchingSinglePortal(struct Vector3* contactPoint, struct Ve
 int collisionSceneIsTouchingPortal(struct Vector3* contactPoint, struct Vector3* contactNormal);
 int collisionSceneIsTouchingUnopenPortal(struct Vector3* contactPoint, struct Vector3* contactNormal);
 int collisionSceneObjectIsTouchingPortal(struct CollisionObject* object, int portalIndex);
+int collisionSceneObjectIsTouchingBehindPortal(struct CollisionObject* object, struct Vector3* contactPoint);
 
 int collisionSceneIsPortalOpen();
 void collisionSceneSetPortal(int portalIndex, struct Transform* transform, int roomIndex, int colliderIndex);
