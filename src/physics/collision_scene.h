@@ -35,8 +35,9 @@ void collisionObjectCollideMixed(struct CollisionObject* object, struct Vector3*
 void collisionObjectCollidePairMixed(struct CollisionObject* a, struct Vector3* aPrevPos, struct Box3D* sweptA, struct CollisionObject* b, struct Vector3* bPrevPos, struct Box3D* sweptB, struct ContactSolver* contactSolver);
 int collisionObjectCollideShapeCast(struct CollisionObject* object, struct Vector3* offset, struct CollisionScene* scene, struct Vector3* finalLocation);
 
-int collisionSceneIsTouchingSinglePortal(struct Vector3* contactPoint, struct Vector3* contactNormal, struct Transform* portalTransform, int portalIndex);
+int collisionSceneIsTouchingSinglePortal(struct Vector3* contactPoint, struct Vector3* contactNormal, int portalIndex);
 int collisionSceneIsTouchingPortal(struct Vector3* contactPoint, struct Vector3* contactNormal);
+int collisionSceneIsTouchingUnopenPortal(struct Vector3* contactPoint, struct Vector3* contactNormal);
 int collisionSceneObjectIsTouchingPortal(struct CollisionObject* object, int portalIndex);
 
 int collisionSceneIsPortalOpen();

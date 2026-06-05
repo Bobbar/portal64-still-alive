@@ -186,9 +186,9 @@ int collisionObjectCollideShapeCast(struct CollisionObject* object, struct Vecto
     return result;
 }
 
-int collisionSceneIsTouchingSinglePortal(struct Vector3* contactPoint, struct Vector3* contactNormal, struct Transform* portalTransform, int portalIndex) {
+int collisionSceneIsTouchingSinglePortal(struct Vector3* contactPoint, struct Vector3* contactNormal, int portalIndex) {
     struct Vector3 localPoint;
-    transformPointInverseNoScale(portalTransform, contactPoint, &localPoint);
+    transformPointInverseNoScale(gCollisionScene.portalTransforms[portalIndex], contactPoint, &localPoint);
 
     if (fabsf(localPoint.z) > PORTAL_THICKNESS) {
         return 0;
@@ -211,7 +211,25 @@ int collisionSceneIsTouchingPortal(struct Vector3* contactPoint, struct Vector3*
     }
 
     for (int i = 0; i < 2; ++i) {
-        if (collisionSceneIsTouchingSinglePortal(contactPoint, contactNormal, gCollisionScene.portalTransforms[i], i)) {
+        if (collisionSceneIsTouchingSinglePortal(contactPoint, contactNormal, i)) {
+            return RigidBodyIsTouchingPortal0 << i;
+        }
+    }
+
+    return 0;
+}
+
+int collisionSceneIsTouchingUnopenPortal(struct Vector3* contactPoint, struct Vector3* contactNormal) {
+    if (collisionSceneIsPortalOpen()) {
+        return 0;
+    }
+
+    for (int i = 0; i < 2; ++i) {
+        if (gCollisionScene.portalTransforms[i] == NULL) {
+            continue;
+        }
+
+        if (collisionSceneIsTouchingSinglePortal(contactPoint, contactNormal, i)) {
             return RigidBodyIsTouchingPortal0 << i;
         }
     }
@@ -545,7 +563,7 @@ int collisionSceneRaycast(struct CollisionScene* scene, int roomIndex, struct Ra
         hit->distance != maxDistance &&
         collisionSceneIsPortalOpen()) {
         for (int i = 0; i < 2; ++i) {
-            if (collisionSceneIsTouchingSinglePortal(&hit->at, &hit->normal, gCollisionScene.portalTransforms[i], i)) {
+            if (collisionSceneIsTouchingSinglePortal(&hit->at, &hit->normal, i)) {
                 short numPortalsPassed;
                 if (i == 0){
                     numPortalsPassed = 1;

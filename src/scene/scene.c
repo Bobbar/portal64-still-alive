@@ -962,7 +962,7 @@ int sceneOpenPortal(struct Scene* scene, struct Transform* at, int transformInde
             }
 
             contactSolverCheckPortalContacts(&gContactSolver);
-            ballBurnFilterOnPortal(&portal->rigidBody.transform, portalIndex);
+            ballBurnFilterOnPortal(portalIndex);
             playerSignalPortalChanged(&scene->player);
             return 1;
         }

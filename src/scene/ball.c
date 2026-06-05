@@ -48,7 +48,7 @@ void ballBurnMarkInit() {
     }
 }
 
-void ballBurnFilterOnPortal(struct Transform* portalTransform, int portalIndex) {
+void ballBurnFilterOnPortal(int portalIndex) {
     for (int i = 0; i < MAX_BURN_MARKS; ++i) {
         struct BallBurnMark* burnMark = &sBurnMarks[i];
 
@@ -56,7 +56,7 @@ void ballBurnFilterOnPortal(struct Transform* portalTransform, int portalIndex) 
             continue;
         }
 
-        if (collisionSceneIsTouchingSinglePortal(&burnMark->at, &burnMark->normal, portalTransform, portalIndex)) {
+        if (collisionSceneIsTouchingSinglePortal(&burnMark->at, &burnMark->normal, portalIndex)) {
             dynamicSceneRemove(burnMark->dynamicId);
             burnMark->dynamicId = INVALID_DYNAMIC_OBJECT;
         }
@@ -184,6 +184,10 @@ void ballCheckBounced(struct Ball* ball) {
 
     // Don't double up burns
     if (lastBurn->dynamicId != INVALID_DYNAMIC_OBJECT && vector3DistSqrd(&burnTransform.position, &lastBurn->at) < 0.1f) {
+        return;
+    }
+
+    if (collisionSceneIsTouchingUnopenPortal(&burnTransform.position, &normal)) {
         return;
     }
 

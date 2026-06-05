@@ -35,7 +35,7 @@ struct Ball {
 };
 
 void ballBurnMarkInit();
-void ballBurnFilterOnPortal(struct Transform* portalTransform, int portalIndex);
+void ballBurnFilterOnPortal(int portalIndex);
 
 void ballInitInactive(struct Ball* ball);
 void ballInit(struct Ball* ball, struct Vector3* position, struct Vector3* velocity, short startingRoom, float ballLifetime);
