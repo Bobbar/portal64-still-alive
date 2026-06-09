@@ -302,6 +302,27 @@ int collisionSceneIsPortalOpen() {
     return gCollisionScene.portalTransforms[0] != NULL && gCollisionScene.portalTransforms[1] != NULL;
 }
 
+static void collisionSceneUpdatePortalSides(int portalIndex) {
+    struct Transform* portalTransform = gCollisionScene.portalTransforms[portalIndex];
+    struct Plane* portalPlane = &gCollisionScene.portalPlanes[portalIndex];
+
+    for (unsigned i = 0; i < gCollisionScene.dynamicObjectCount; ++i) {
+        struct CollisionObject* object = gCollisionScene.dynamicObjects[i];
+
+        if (object->body->flags & RigidBodyIsKinematic) {
+            continue;
+        }
+
+        // Keep side flag up to date when portals move, even if sleeping, so
+        // the first awake frame is correct
+        if (portalTransform && planePointDistance(portalPlane, &object->body->transform.position) > 0.0f) {
+            object->body->flags |= (RigidBodyFlagsInFrontPortal0 << portalIndex);
+        } else {
+            object->body->flags &= ~(RigidBodyFlagsInFrontPortal0 << portalIndex);
+        }
+    }
+}
+
 void collisionSceneSetPortal(int portalIndex, struct Transform* transform, int roomIndex, int colliderIndex) {
     gCollisionScene.portalTransforms[portalIndex] = transform;
     gCollisionScene.portalRooms[portalIndex] = roomIndex;
@@ -320,6 +341,8 @@ void collisionSceneSetPortal(int portalIndex, struct Transform* transform, int r
             transformInvert(&gCollisionScene.toOtherPortalTransform[portalIndex], &gCollisionScene.toOtherPortalTransform[1 - portalIndex]);
         }
     }
+
+    collisionSceneUpdatePortalSides(portalIndex);
 }
 
 struct Transform* collisionSceneTransformToOtherPortal(int fromPortal) {
