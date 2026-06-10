@@ -29,18 +29,13 @@ struct SceneAnimator {
 };
 
 void sceneAnimatorInit(struct SceneAnimator* sceneAnimator, struct AnimationInfo* animationInfo, int animatorCount);
-
 void sceneAnimatorUpdate(struct SceneAnimator* sceneAnimator);
 
 void sceneAnimatorTransformForIndex(struct SceneAnimator* sceneAnimator, int index, struct Transform* result);
-
 Mtx* sceneAnimatorBuildTransforms(struct SceneAnimator* sceneAnimator, struct RenderState* renderState);
 
 void sceneAnimatorPlay(struct SceneAnimator* sceneAnimator, int animatorIndex, int animationIndex, float speed, int flags);
 void sceneAnimatorSetSpeed(struct SceneAnimator* sceneAnimator, int animatorIndex, float speed);
-
 int sceneAnimatorIsRunning(struct SceneAnimator* sceneAnimator, int animatorIndex);
-
-float sceneAnimatorCurrentTime(struct SceneAnimator* sceneAnimator, int animatorIndex);
 
 #endif

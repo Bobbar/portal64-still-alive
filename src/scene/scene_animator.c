@@ -14,7 +14,7 @@ struct AnimatedAudioInfo {
     float pitch;
 };
 
-struct AnimatedAudioInfo gAnimatedAudioInfo[] = {
+static struct AnimatedAudioInfo sAnimatedAudioInfo[] = {
 /* None      */ {.startSoundId = SOUND_ID_NONE, .loopSoundId = SOUND_ID_NONE, .endSoundId = SOUND_ID_NONE},
 /* LightRail */ {.startSoundId = SOUND_ID_NONE, .loopSoundId = SOUNDS_BEAM_PLATFORM_LOOP1, .endSoundId = SOUND_ID_NONE, .volume = 1.0f, .pitch = 0.8f},
 /* Piston    */ {.startSoundId = SOUNDS_APC_START_LOOP3, .loopSoundId = SOUNDS_APC_IDLE1, .endSoundId = SOUNDS_APC_SHUTDOWN, .volume = 0.9f, .pitch = 1.0f},
@@ -68,7 +68,7 @@ void sceneAnimatorUpdate(struct SceneAnimator* sceneAnimator) {
 
         skAnimatorUpdate(animator, sceneAnimator->armatures[i].pose, FIXED_DELTA_TIME * state->playbackSpeed);
 
-        struct AnimatedAudioInfo* audioInfo = &gAnimatedAudioInfo[sceneAnimator->animationInfo[i].soundType];
+        struct AnimatedAudioInfo* audioInfo = &sAnimatedAudioInfo[sceneAnimator->animationInfo[i].soundType];
 
         struct Vector3 currentPos;
         skArmatureGetCenter(&sceneAnimator->armatures[i], &currentPos);
@@ -137,6 +137,7 @@ void sceneAnimatorPlay(struct SceneAnimator* sceneAnimator, int animatorIndex, i
         return;
     }
 
+    struct SKAnimator* animator = &sceneAnimator->animators[animatorIndex];
     struct AnimationInfo* info = &sceneAnimator->animationInfo[animatorIndex];
 
     if (animationIndex < 0 || animationIndex >= info->clipCount) {
@@ -147,7 +148,11 @@ void sceneAnimatorPlay(struct SceneAnimator* sceneAnimator, int animatorIndex, i
 
     sceneAnimator->state[animatorIndex].playbackSpeed = speed;
 
-    if (sceneAnimator->animators[animatorIndex].currentClip == clip) {
+    if (animator->currentClip == clip) {
+        // Make sure speed changes take effect on the last frame. This delays
+        // the ending by 1 frame if the playback direction is the same.
+        animator->flags &= ~SKAnimatorFlagsDone;
+
         return;
     }
     
@@ -168,16 +173,4 @@ int sceneAnimatorIsRunning(struct SceneAnimator* sceneAnimator, int animatorInde
     }
 
     return skAnimatorIsRunning(&sceneAnimator->animators[animatorIndex]);
-}
-
-float sceneAnimatorCurrentTime(struct SceneAnimator* sceneAnimator, int animatorIndex) {
-    if (animatorIndex < 0 || animatorIndex >= sceneAnimator->animatorCount) {
-        return -1.0;
-    }
-
-    if (!skAnimatorIsRunning(&sceneAnimator->animators[animatorIndex])) {
-        return -1.0f;
-    }
-
-    return sceneAnimator->animators[animatorIndex].currentTime;
 }

@@ -198,7 +198,7 @@ void skAnimatorStep(struct SKAnimator* animator, float deltaTime) {
     int existingNextFrame = skAnimatorBoneStateIndexOfFrame(animator, nextFrame);
 
     if (existingPrevFrame == -1 && existingNextFrame == -1) {
-        // both frames need to be requested
+        // Both frames need to be requested
         animator->blendLerp = lerpValue;
         if (prevFrame != nextFrame) {
             animator->nextFrameStateIndex = 0;
@@ -206,33 +206,21 @@ void skAnimatorStep(struct SKAnimator* animator, float deltaTime) {
         }
         animator->nextFrameStateIndex = 1;
         skAnimatorRequestFrame(animator, nextFrame);
-        return;
-    }
-
-    if (existingNextFrame == -1) {
-        // only the next frame needs to be requested
+    } else if (existingNextFrame == -1) {
+        // Only the next frame needs to be requested
         animator->blendLerp = lerpValue;
         animator->nextFrameStateIndex = existingPrevFrame ^ 1;
         skAnimatorRequestFrame(animator, nextFrame);
-        return;
-    }
-
-    if (existingPrevFrame == -1) {
-        // only the previous frame needs to be requested
+    } else if (existingPrevFrame == -1) {
+        // Only the previous frame needs to be requested
         animator->blendLerp = 1.0f - lerpValue;
         animator->nextFrameStateIndex = existingNextFrame ^ 1;
         skAnimatorRequestFrame(animator, prevFrame);
-        return;
-    }
-
-    if (existingNextFrame == existingPrevFrame) {
-        // only one frame is needed and is already present
+    } else if (existingNextFrame == existingPrevFrame) {
+        // Only one frame is needed and is already present
         animator->blendLerp = 1.0f;
         animator->nextFrameStateIndex = existingNextFrame;
-        return;
-    }
-
-    if (existingNextFrame == 1) {
+    } else if (existingNextFrame == 1) {
         animator->blendLerp = lerpValue;
     } else {
         animator->blendLerp = 1.0f - lerpValue;
