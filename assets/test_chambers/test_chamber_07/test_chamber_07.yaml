@@ -31,9 +31,9 @@ cutscenes:
   platform_ferry:
     - wait_for_signal move_platform
     - save_checkpoint
-    - delay 1.5 pre_slide
+    - delay 1.5
     - label anim_loop_start
-    - play_animation horizontal slide 1
+    - play_animation horizontal slide
     - wait_for_animation horizontal
     - wait_for_signal move_to_gun
     - play_animation horizontal slide -1
@@ -67,12 +67,12 @@ cutscenes:
     - set_signal trap_door
   platform_loop:
     - label anim_platform_loop_start
-    - play_animation horizontal slide 1
-    - wait_for_animation horizontal loop_out
-    - delay 3 anim_pause
+    - play_animation horizontal slide
+    - wait_for_animation horizontal
+    - delay 3
     - play_animation horizontal slide -1
-    - wait_for_animation horizontal loop_in
-    - delay 3 anim_pause_end
+    - wait_for_animation horizontal
+    - delay 3
     - goto anim_platform_loop_start
   START_1:
     - activate_signage 12

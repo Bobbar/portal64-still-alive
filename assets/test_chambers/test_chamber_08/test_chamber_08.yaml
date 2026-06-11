@@ -7,6 +7,10 @@ cutscenes:
     - label horizontal_loop
     - play_animation horizontal horizontal_slide
     - wait_for_animation horizontal
+    - delay 3
+    - play_animation horizontal horizontal_slide -1
+    - wait_for_animation horizontal
+    - delay 3
     - goto horizontal_loop
   INTRO_CUTSCENE:
     - activate_signage 13

@@ -14,7 +14,7 @@ cutscenes:
   INTRO:
     - activate_signage 6
     - delay 2
-    - save_checkpoint 0
+    - save_checkpoint
     - open_portal ground_portal 0
     - q_sound SOUNDS_03_PART1_ENTRY_1 CH_GLADOS PORTAL_03_PART1_ENTRY_1
     - q_sound SOUNDS_03_PART1_ENTRY_2 CH_GLADOS PORTAL_03_PART1_ENTRY_2
@@ -27,10 +27,14 @@ cutscenes:
     - label horizontal_loop
     - play_animation horizontal horizontal_slide
     - wait_for_animation horizontal
+    - delay 4
+    - play_animation horizontal horizontal_slide -1
+    - wait_for_animation horizontal
+    - delay 4
     - goto horizontal_loop
   INTRO_2:
     - activate_signage 7
-    - save_checkpoint 0.001
+    - save_checkpoint
     - open_portal ground_portal_2
     - start_cutscene BALL_2
     - q_sound SOUNDS_03_PART2_ENTRY_1 CH_GLADOS PORTAL_03_PART2_ENTRY_1
