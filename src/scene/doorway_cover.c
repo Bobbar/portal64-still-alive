@@ -19,6 +19,16 @@ static Gfx cover_gfx[] = {
     gsSPEndDisplayList()
 };
 
+static float axisDistance(struct DoorwayCover* cover, struct Vector3* offset) {
+    float dist = vector3Dot(&cover->definition->fadeAxis, offset);
+
+    if (cover->definition->fadeAxisDirection == DoorwayCoverFadeAxisDirectionForward) {
+        return MAX(0.0f, dist);
+    } else {
+        return fabsf(dist);
+    }
+}
+
 static float calculateOpacity(struct DoorwayCover* cover, struct Vector3* offset) {
     float dist = vector3MagSqrd(offset);
     float start = cover->definition->fadeStartDistance;
@@ -34,7 +44,7 @@ static float calculateOpacity(struct DoorwayCover* cover, struct Vector3* offset
 }
 
 static float calculateAxisOpacity(struct DoorwayCover* cover, struct Vector3* offset) {
-    float dist = fabsf(vector3Dot(offset, &cover->definition->fadeAxis));
+    float dist = axisDistance(cover, offset);
     float start = cover->definition->fadeStartDistance;
     float end = cover->definition->fadeEndDistance;
 
@@ -62,7 +72,7 @@ static float doorwayCoverOpacity(struct DoorwayCover* cover, u64* visibleRooms, 
     struct Vector3 offset;
     vector3Sub(&cover->definition->position, viewPosition, &offset);
 
-    if (!vector3IsZero(&cover->definition->fadeAxis)) {
+    if (cover->definition->fadeAxisDirection != DoorwayCoverFadeAxisDirectionNone) {
         return calculateAxisOpacity(cover, &offset);
     } else {
         return calculateOpacity(cover, &offset);
@@ -143,9 +153,9 @@ int doorwayCoverIsOpaqueFromView(struct DoorwayCover* cover, struct Vector3* vie
     struct Vector3 offset;
     vector3Sub(&cover->definition->position, viewPosition, &offset);
 
-    if (!vector3IsZero(&cover->definition->fadeAxis)) {
+    if (cover->definition->fadeAxisDirection != DoorwayCoverFadeAxisDirectionNone) {
         float threshold = cover->definition->fadeEndDistance;
-        return fabsf(vector3Dot(&offset, &cover->definition->fadeAxis)) >= threshold;
+        return axisDistance(cover, &offset) >= threshold;
     } else {
         float threshold = cover->definition->fadeEndDistance * cover->definition->fadeEndDistance;
         return vector3MagSqrd(&offset) >= threshold;

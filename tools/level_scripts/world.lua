@@ -108,10 +108,11 @@ for _, cover in pairs(sk_scene.nodes_for_type('@doorway_cover')) do
     }
 
     local color = sk_math.color4_from_hex(cover.arguments[1] or '000000')
-    local fade_start, fade_end, fade_axis = sk_scene.find_named_argument(cover.arguments, "fade", 3)
+    local fade_start, fade_end, fade_axis, fade_axis_direction = sk_scene.find_named_argument(cover.arguments, "fade", 4)
 
     if fade_axis then
         fade_axis = util.string_split(util.trim(fade_axis), ',')
+        fade_axis_direction = (fade_axis_direction == 'forward' and 'Forward') or 'Both'
 
         if #fade_axis ~= 3 then
             error('Expected 3 vector components for doorway_cover fade axis. Found ' .. table.concat(fade_axis, ',') .. '.')
@@ -128,6 +129,7 @@ for _, cover in pairs(sk_scene.nodes_for_type('@doorway_cover')) do
         basis = basis,
         position = center,
         fadeAxis = fade_axis or sk_math.vector3(),
+        fadeAxisDirection = sk_definition_writer.raw('DoorwayCoverFadeAxisDirection' .. (fade_axis_direction or 'None')),
         fadeStartDistance = tonumber(fade_start or '-1'),
         fadeEndDistance = tonumber(fade_end or '-1'),
         color = sk_math.color4_from_hex(cover.arguments[1] or '000000'),

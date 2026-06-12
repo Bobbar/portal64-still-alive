@@ -10,7 +10,7 @@ doorway both close up and too far away to perceive detail.
 ## Name Structure
 
 ```
-@doorway_cover [COLOR] [fade START_DISTANCE END_DISTANCE [AXIS]]
+@doorway_cover [COLOR] [fade START_DISTANCE END_DISTANCE [AXIS] [forward]]
 ```
 
 ## Arguments
@@ -18,7 +18,7 @@ doorway both close up and too far away to perceive detail.
 | Name                                                 | Description                                                                |
 | ---------------------------------------------------- | ---------------------------------------------------------------------------|
 | `COLOR` (optional)                                   | The hex representation of the cover's color. Defaults to `000000` (black). |
-| `fade START_DISTANCE END_DISTANCE [AXIS]` (optional) | If specified, the cover's opacity is set based on the view distance's position between the given start and end values. At full opacity, the associated doorway is fully covered and considered non-visible. `AXIS` is an optional comma-separated 3D vector which, if specified, limits distance checks to that axis. |
+| `fade START_DISTANCE END_DISTANCE [AXIS] [forward]` (optional) | If specified, the cover's opacity is set based on the view distance's position between the given start and end values. At full opacity, the associated doorway is fully covered and considered non-visible. `AXIS` is an optional comma-separated 3D vector which, if specified, limits distance checks to that axis. If `forward` is specified, distance checks are further limited to the positive side of the axis. |
 
 ## Notes
 

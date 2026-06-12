@@ -243,10 +243,17 @@ struct DoorDefinition {
     short doorType;
 };
 
+enum DoorwayCoverFadeAxisDirection {
+    DoorwayCoverFadeAxisDirectionNone,
+    DoorwayCoverFadeAxisDirectionForward,
+    DoorwayCoverFadeAxisDirectionBoth
+};
+
 struct DoorwayCoverDefinition {
     struct Basis basis;
     struct Vector3 position;
     struct Vector3 fadeAxis;
+    enum DoorwayCoverFadeAxisDirection fadeAxisDirection;
     float fadeStartDistance;
     float fadeEndDistance;
     struct Coloru8 color;
