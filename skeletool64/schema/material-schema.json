@@ -4,6 +4,8 @@
     "definitions": {
         "renderBlendModes": {
             "type": "array",
+            "minItems": 4,
+            "maxItems": 4,
             "items": [
                 {
                     "enum": [
@@ -154,6 +156,8 @@
                     "properties": {
                         "color": {
                             "type": "array",
+                            "minItems": 4,
+                            "maxItems": 4,
                             "items": [
                                 {
                                     "enum": [
@@ -218,6 +222,8 @@
                         },
                         "alpha": {
                             "type": "array",
+                            "minItems": 4,
+                            "maxItems": 4,
                             "items": [
                                 {
                                     "enum": [
@@ -596,11 +602,11 @@
                         },
                         {
                             "type": "array",
-                            "items": [{
+                            "minItems": 2,
+                            "maxItems": 2,
+                            "items": {
                                 "$ref": "#/definitions/renderMode"
-                            }, {
-                                "$ref": "#/definitions/renderMode"
-                            }]
+                            }
                         }
                     ]
                 },
@@ -608,11 +614,11 @@
                     "anyOf": [
                         {
                             "type": "array",
+                            "minItems": 2,
+                            "maxItems": 2,
                             "items": {
                                 "$ref": "#/definitions/combineMode"
-                            },
-                            "maxLength": 2,
-                            "minLength": 2
+                            }
                         },
                         {
                             "$ref": "#/definitions/combineMode"
@@ -640,6 +646,8 @@
                         },
                         {
                             "type": "array",
+                            "minItems": 1,
+                            "maxItems": 8,
                             "items": {
                                 "oneOf": [
                                     {
@@ -649,9 +657,7 @@
                                         "$ref": "#/definitions/tileSettings"
                                     }
                                 ]
-                            },
-                            "maxLength": 8,
-                            "minLength": 1
+                            }
                         }
                     ]
                 },

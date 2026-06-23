@@ -476,12 +476,18 @@ void parseColorCombineMode(const YAML::Node& node, ColorCombineMode& combineMode
     }
 
     if (!node.IsSequence() || node.size() != 4) {
-        output.mErrors.push_back(ParseError(formatError("Blend mode should be an array of strings", node.Mark())));
+        output.mErrors.push_back(ParseError(formatError("Combine mode color should be an array of 4 strings", node.Mark())));
         return;
     }
 
     for (int i = 0; i < 4; ++i) {
-        combineMode.color[i] = parseEnumType(node[i], output, gColorCombineSourceNames, ColorCombineSource::_0, (int)ColorCombineSource::Count);
+        ColorCombineSource source = parseEnumType(node[i], output, gColorCombineSourceNames, ColorCombineSource::_0, (int)ColorCombineSource::Count);
+        if (canUseColorCombineSource(i, source)) {
+            combineMode.color[i] = source;
+        } else {
+            output.mErrors.push_back(ParseError(formatError("Invalid combine mode color source", node.Mark())));
+            return;
+        }
     }
 }
 
@@ -495,12 +501,18 @@ void parseAlphaCombineMode(const YAML::Node& node, ColorCombineMode& combineMode
     }
 
     if (!node.IsSequence() || node.size() != 4) {
-        output.mErrors.push_back(ParseError(formatError("Blend mode should be an array of strings", node.Mark())));
+        output.mErrors.push_back(ParseError(formatError("Combine mode alpha should be an array of 4 strings", node.Mark())));
         return;
     }
 
     for (int i = 0; i < 4; ++i) {
-        combineMode.alpha[i] = parseEnumType(node[i], output, gAlphaCombineSourceNames, AlphaCombineSource::_0, (int)AlphaCombineSource::Count);
+        AlphaCombineSource source = parseEnumType(node[i], output, gAlphaCombineSourceNames, AlphaCombineSource::_0, (int)AlphaCombineSource::Count);
+        if (canUseAlphaCombineSource(i, source)) {
+            combineMode.alpha[i] = source;
+        } else {
+            output.mErrors.push_back(ParseError(formatError("Invalid combine mode alpha source", node.Mark())));
+            return;
+        }
     }
 }
 

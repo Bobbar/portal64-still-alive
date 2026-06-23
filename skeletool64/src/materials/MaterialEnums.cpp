@@ -79,7 +79,7 @@ bool gCanUseAlphaCombineSources[4][(int)AlphaCombineSource::Count] = {
     {true, true, true, true, true, true, false, false, true, true},
 };
 
-bool canUseAlphaCombineSource(int offset, ColorCombineSource source) {
+bool canUseAlphaCombineSource(int offset, AlphaCombineSource source) {
     return gCanUseAlphaCombineSources[offset][(int)source];
 }
 
