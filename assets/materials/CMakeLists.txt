@@ -76,10 +76,15 @@ set(TEXTURES
     models/weapons/v_models/v_portalgun/v_portalgun
     nature/hazard_liquid
     overlays/aperture_lrg001
+    overlays/cake_picture
     overlays/overlay_handprint
     overlays/overlay_scrawlings002a
     overlays/overlay_scrawlings003a
     overlays/overlay_scrawlings004a
+    overlays/overlay_scrawlings005a
+    overlays/overlay_scrawlings006a
+    overlays/overlay_scrawlings006b
+    overlays/overlay_scrawlings006c
     plastic/plasticwall003a
     plastic/plasticwall004a
     signage/clock/clock_dots
@@ -367,11 +372,38 @@ set_property(SOURCE overlays/overlay_scrawlings002a.ims
     PROPERTY ADDITIONAL_DEPS
         concrete/concrete_bts_modular_wall001b
 )
+set_property(SOURCE overlays/overlay_scrawlings006a.ims
+    PROPERTY ADDITIONAL_DEPS
+        concrete/concrete_bts_modular_wall001b
+)
+set_property(SOURCE overlays/overlay_scrawlings006b.ims
+    PROPERTY ADDITIONAL_DEPS
+        concrete/concrete_bts_modular_wall001b
+)
+set_property(SOURCE overlays/overlay_scrawlings006c.ims
+    PROPERTY ADDITIONAL_DEPS
+        concrete/concrete_bts_modular_wall001b
+)
 foreach(i RANGE 2 32)
     set_property(SOURCE overlays/overlay_scrawlings002a.ims
         APPEND
         PROPERTY ADDITIONAL_OUTPUTS
             overlays/overlay_scrawlings002a_${i}
+    )
+    set_property(SOURCE overlays/overlay_scrawlings006a.ims
+        APPEND
+        PROPERTY ADDITIONAL_OUTPUTS
+            overlays/overlay_scrawlings006a_${i}
+    )
+    set_property(SOURCE overlays/overlay_scrawlings006b.ims
+        APPEND
+        PROPERTY ADDITIONAL_OUTPUTS
+            overlays/overlay_scrawlings006b_${i}
+    )
+    set_property(SOURCE overlays/overlay_scrawlings006c.ims
+        APPEND
+        PROPERTY ADDITIONAL_OUTPUTS
+            overlays/overlay_scrawlings006c_${i}
     )
 endforeach()
 set_property(SOURCE signage/clock/countdown.ims

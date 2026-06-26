@@ -6,7 +6,11 @@ def should_bake_material(mat):
     return 'bakeType' in mat and mat['bakeType'] == 'lit'
 
 def should_bake_object(obj):
-    return obj.type == 'MESH' and len(obj.material_slots) > 0 and obj.material_slots[0].material and should_bake_material(obj.material_slots[0].material)
+    return 'nobake' not in obj.name.lower().split(' ') and \
+        obj.type == 'MESH' and \
+        len(obj.material_slots) > 0 and \
+        obj.material_slots[0].material and \
+        should_bake_material(obj.material_slots[0].material)
 
 def get_or_make_color_layer(mesh):
     for layer in mesh.vertex_colors:

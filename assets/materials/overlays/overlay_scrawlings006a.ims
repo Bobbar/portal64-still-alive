@@ -1,0 +1,40 @@
+\( portal_pak_dir/materials/concrete/concrete_bts_modular_wall001b.png \)
+
+-compose DstOver
+-composite
+
+-resize 256x256
+
+\( +clone -crop 64x32+64+0    -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_2.png +delete \)
+\( +clone -crop 64x32+128+0   -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_3.png +delete \)
+\( +clone -crop 64x32+192+0   -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_4.png +delete \)
+\( +clone -crop 64x32+0+32    -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_5.png +delete \)
+\( +clone -crop 64x32+64+32   -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_6.png +delete \)
+\( +clone -crop 64x32+128+32  -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_7.png +delete \)
+\( +clone -crop 64x32+192+32  -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_8.png +delete \)
+\( +clone -crop 64x32+0+64    -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_9.png +delete \)
+\( +clone -crop 64x32+64+64   -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_10.png +delete \)
+\( +clone -crop 64x32+128+64  -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_11.png +delete \)
+\( +clone -crop 64x32+192+64  -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_12.png +delete \)
+\( +clone -crop 64x32+0+96    -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_13.png +delete \)
+\( +clone -crop 64x32+64+96   -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_14.png +delete \)
+\( +clone -crop 64x32+128+96  -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_15.png +delete \)
+\( +clone -crop 64x32+192+96  -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_16.png +delete \)
+\( +clone -crop 64x32+0+128   -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_17.png +delete \)
+\( +clone -crop 64x32+64+128  -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_18.png +delete \)
+\( +clone -crop 64x32+128+128 -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_19.png +delete \)
+\( +clone -crop 64x32+192+128 -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_20.png +delete \)
+\( +clone -crop 64x32+0+160   -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_21.png +delete \)
+\( +clone -crop 64x32+64+160  -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_22.png +delete \)
+\( +clone -crop 64x32+128+160 -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_23.png +delete \)
+\( +clone -crop 64x32+192+160 -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_24.png +delete \)
+\( +clone -crop 64x32+0+192   -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_25.png +delete \)
+\( +clone -crop 64x32+64+192  -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_26.png +delete \)
+\( +clone -crop 64x32+128+192 -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_27.png +delete \)
+\( +clone -crop 64x32+192+192 -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_28.png +delete \)
+\( +clone -crop 64x32+0+224   -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_29.png +delete \)
+\( +clone -crop 64x32+64+224  -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_30.png +delete \)
+\( +clone -crop 64x32+128+224 -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_31.png +delete \)
+\( +clone -crop 64x32+192+224 -write portal_pak_modified/materials/overlays/overlay_scrawlings006a_32.png +delete \)
+
+-crop 64x32+0+0

@@ -129,7 +129,7 @@ static int isDynamicObjectCulled(struct DynamicSceneObject* object, struct Vecto
         renderStage->currentDepth < gSaveData.gameplay.portalRenderDepth
     ) {
         struct Vector3* portalPos = &gCollisionScene.portalTransforms[renderStage->exitPortalIndex]->position;
-        float distThreshold = (object->scaledRadius / SCENE_SCALE) + PORTAL_COVER_HEIGHT_RADIUS;
+        float distThreshold = (object->scaledRadius * (1.0f / SCENE_SCALE)) + PORTAL_COVER_HEIGHT_RADIUS;
 
         if (vector3DistSqrd(portalPos, object->position) <= (distThreshold * distThreshold)) {
             return object->preciseCullingCallback(object->data, &renderStage->cameraMatrixInfo.cullingInformation);

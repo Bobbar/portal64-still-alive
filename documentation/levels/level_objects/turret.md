@@ -22,3 +22,5 @@ on top). This is useful for turrets blocking the player's path and/or intended
 as a demonstration rather than an obstacle. For example, the first turret of
 chamber 16. This applies until the turret leaves the idle state (grabbed, player
 detected, etc.).
+
+Turrets can be destroyed using [fizzlers](./fizzler.md).

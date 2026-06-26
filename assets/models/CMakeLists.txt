@@ -37,6 +37,9 @@ set(STATIC_MODELS
 set(DYNAMIC_MODELS
     cube/cube
     overlays/overlay_scrawlings002a
+    overlays/overlay_scrawlings006a
+    overlays/overlay_scrawlings006b
+    overlays/overlay_scrawlings006c
     pedestal
     props/autoportal_frame/autoportal_frame
     props/box_dropper
@@ -211,6 +214,21 @@ set_property(SOURCE player/chell.flags
 )
 
 set_property(SOURCE overlays/overlay_scrawlings002a.flags
+    PROPERTY ADDITIONAL_MATERIALS
+        ${ASSETS_DIR}/materials/overlays.skm.yaml
+)
+
+set_property(SOURCE overlays/overlay_scrawlings006a.flags
+    PROPERTY ADDITIONAL_MATERIALS
+        ${ASSETS_DIR}/materials/overlays.skm.yaml
+)
+
+set_property(SOURCE overlays/overlay_scrawlings006b.flags
+    PROPERTY ADDITIONAL_MATERIALS
+        ${ASSETS_DIR}/materials/overlays.skm.yaml
+)
+
+set_property(SOURCE overlays/overlay_scrawlings006c.flags
     PROPERTY ADDITIONAL_MATERIALS
         ${ASSETS_DIR}/materials/overlays.skm.yaml
 )

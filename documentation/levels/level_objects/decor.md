@@ -36,6 +36,7 @@ type names are:
 | `RADIO`             | Plays "Still Alive" jazz arrangement. Has collision.                                 |
 | `CUBE`              | A weighted storage cube. Has collision. Respawns when destroyed.                     |
 | `CUBE_UNIMPORTANT`  | A weighted storage cube. Has collision. Does not respawn when destroyed.             |
+| `COMPANION_CUBE`    | A weighted companion cube. Has collision. Does not respawn when destroyed.           |
 | `AUTOPORTAL_FRAME`  | Border denoting [location](./location.md) where scripted portals open. No collision. |
 | `LIGHT_RAIL_ENDCAP` | Moving platform light beam base. No collision.                                       |
 | `LAB_MONITOR`       | Observation room computer monitor. No collision.                                     |
@@ -44,3 +45,14 @@ type names are:
 | `LAB_DESK02`        | Observation room desk variant 2. No collision.                                       |
 | `LAB_DESK03`        | Observation room desk variant 3. No collision.                                       |
 | `LAB_DESK04`        | Observation room desk variant 4. No collision.                                       |
+| `FOOD_CAN`          | A closed can of beans. Has collision. Does not respawn when destroyed.               |
+| `WATER_BOTTLE`      | A water jug. Has collision. Does not respawn when destroyed.                         |
+| `SAUCEPAN`          | A saucepan. Has collision. Does not respawn when destroyed.                          |
+| `METALBUCKET01A`    | An empty bucket. Has collision. Does not respawn when destroyed.                     |
+| `MILK_CARTON`       | A closed milk carton. Has collision. Does not respawn when destroyed.                |
+| `MILK_CARTON_OPEN`  | An open milk carton. Has collision. Does not respawn when destroyed.                 |
+| `PC_CASE_OPEN`      | An open desktop PC. Has collision. Does not respawn when destroyed.                  |
+| `SCRAWLINGS002A`    | Chamber 16 Rattmann den graffiti ("the cake is a lie"). No collision.                |
+| `SCRAWLINGS006A`    | Chamber 17 Rattmann den graffiti (companion cube calendar). No collision.            |
+| `SCRAWLINGS006B`    | Chamber 17 Rattmann den graffiti (companion cube photos). No collision.              |
+| `SCRAWLINGS006C`    | Chamber 17 Rattmann den graffiti (companion cube obituary). No collision.            |

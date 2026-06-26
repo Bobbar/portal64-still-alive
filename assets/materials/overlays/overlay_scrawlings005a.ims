@@ -1,0 +1,1 @@
+-alpha extract -crop 256x188+0+22 -resize 96x72

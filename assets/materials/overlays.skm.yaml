@@ -223,3 +223,678 @@ materials:
         wrap: false
       t:
         wrap: false
+
+  overlay_scrawlings006a_1:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_2:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_2.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_3:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_3.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_4:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_4.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_5:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_5.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_6:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_6.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_7:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_7.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_8:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_8.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_9:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_9.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_10:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_10.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_11:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_11.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_12:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_12.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_13:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_13.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_14:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_14.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_15:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_15.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_16:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_16.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_17:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_17.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_18:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_18.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_19:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_19.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_20:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_20.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_21:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_21.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_22:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_22.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_23:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_23.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_24:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_24.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_25:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_25.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_26:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_26.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_27:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_27.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_28:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_28.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_29:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_29.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_30:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_30.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_31:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_31.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006a_32:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006a_32.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+
+  overlay_scrawlings006b_1:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_2:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_2.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_3:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_3.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_4:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_4.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_5:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_5.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_6:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_6.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_7:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_7.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_8:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_8.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_9:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_9.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_10:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_10.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_11:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_11.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_12:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_12.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_13:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_13.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_14:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_14.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_15:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_15.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_16:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_16.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_17:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_17.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_18:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_18.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_19:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_19.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_20:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_20.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_21:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_21.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_22:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_22.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_23:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_23.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_24:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_24.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_25:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_25.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_26:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_26.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_27:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_27.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_28:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_28.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_29:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_29.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_30:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_30.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_31:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_31.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006b_32:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006b_32.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+
+  overlay_scrawlings006c_1:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_2:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_2.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_3:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_3.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_4:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_4.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_5:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_5.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_6:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_6.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_7:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_7.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_8:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_8.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_9:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_9.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_10:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_10.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_11:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_11.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_12:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_12.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_13:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_13.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_14:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_14.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_15:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_15.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_16:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_16.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_17:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_17.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_18:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_18.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_19:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_19.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_20:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_20.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_21:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_21.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_22:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_22.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_23:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_23.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_24:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_24.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_25:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_25.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_26:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_26.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_27:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_27.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_28:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_28.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_29:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_29.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_30:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_30.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_31:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_31.png"
+      s:
+        wrap: false
+      t:
+        wrap: false
+  overlay_scrawlings006c_32:
+    gDPSetTile:
+      filename: "../../portal_pak_modified/materials/overlays/overlay_scrawlings006c_32.png"
+      s:
+        wrap: false
+      t:
+        wrap: false

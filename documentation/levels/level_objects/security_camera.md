@@ -5,8 +5,14 @@ A wall-mounted camera which points toward the player.
 ## Name Structure
 
 ```
-@security_camera
+@security_camera [detached]
 ```
+
+## Arguments
+
+| Name                  | Description                                                                                             |
+| --------------------- | ------------------------------------------------------------------------------------------------------- |
+| `detached` (optional) | If specified, the security camera will spawn with physics and no animation, as if detached from a wall. |
 
 ## Notes
 

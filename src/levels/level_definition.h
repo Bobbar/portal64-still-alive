@@ -377,6 +377,7 @@ struct SecurityCameraDefinition {
     struct Vector3 position;
     struct Quaternion rotation;
     short roomIndex;
+    u8 isDetached;
 };
 
 struct TurretDefinition {

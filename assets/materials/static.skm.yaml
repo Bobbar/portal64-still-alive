@@ -1889,6 +1889,25 @@ materials:
       g: 31
       b: 33
 
+  cake_picture:
+    gDPSetTile:
+      filename: ../../portal_pak_modified/materials/overlays/cake_picture.png
+      siz: G_IM_SIZ_16b
+      fmt: G_IM_FMT_RGBA
+      s:
+        wrap: false
+      t:
+        wrap: false
+
+    gDPSetRenderMode: G_RM_ZB_XLU_DECAL
+    gDPSetCombineMode:
+      color: ["TEXEL0", "0", "SHADE", "0"]
+      alpha: ["0", "0", "0", "TEXEL0"]
+
+    gSPGeometryMode:
+      set: [G_SHADE]
+      clear: [G_LIGHTING]
+
   overlay_scrawlings003a:
     gDPSetTile:
       filename: ../../portal_pak_modified/materials/overlays/overlay_scrawlings003a.png
@@ -1914,6 +1933,30 @@ materials:
       filename: ../../portal_pak_modified/materials/overlays/overlay_scrawlings004a.png
       siz: G_IM_SIZ_4b
       fmt: G_IM_FMT_I
+
+    gDPSetRenderMode: G_RM_ZB_XLU_DECAL
+    gDPSetCombineMode:
+      color: ["PRIMITIVE", "0", "SHADE", "0"]
+      alpha: ["0", "0", "0", "TEXEL0"]
+
+    gSPGeometryMode:
+      set: [G_SHADE]
+      clear: [G_LIGHTING]
+
+    gDPSetPrimColor:
+      r: 79
+      g: 16
+      b: 15
+
+  overlay_scrawlings005a:
+    gDPSetTile:
+      filename: ../../portal_pak_modified/materials/overlays/overlay_scrawlings005a.png
+      siz: G_IM_SIZ_4b
+      fmt: G_IM_FMT_I
+      s:
+        wrap: false
+      t:
+        wrap: false
 
     gDPSetRenderMode: G_RM_ZB_XLU_DECAL
     gDPSetCombineMode:

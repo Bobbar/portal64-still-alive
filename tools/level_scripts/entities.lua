@@ -229,6 +229,7 @@ for _, security_camera_element in pairs(sk_scene.nodes_for_type('@security_camer
         position = position,
         rotation = rotation * sk_math.axis_angle(sk_math.vector3(1, 0, 0), math.pi * 0.5),
         roomIndex = room_index,
+        isDetached = sk_scene.find_flag_argument(security_camera_element.arguments, "detached")
     })
 end
 
