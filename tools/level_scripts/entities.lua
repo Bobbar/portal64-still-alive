@@ -253,6 +253,23 @@ end
 
 sk_definition_writer.add_definition('turrets', 'struct TurretDefinition[]', '_geo', turrets)
 
+local incinerators = {}
+
+for _, incinerator_element in pairs(sk_scene.nodes_for_type('@incinerator')) do
+    local position, rotation = incinerator_element.node.full_transformation:decompose()
+
+    local room_index = room_export.node_nearest_room_index(incinerator_element.node)
+
+    table.insert(incinerators, {
+        position = position,
+        rotation = rotation * sk_math.axis_angle(sk_math.vector3(1, 0, 0), math.pi * 0.5),
+        roomIndex = room_index,
+        signalIndex = signals.signal_index_for_name(incinerator_element.arguments[1]),
+    })
+end
+
+sk_definition_writer.add_definition('incinerators', 'struct IncineratorDefinition[]', '_geo', incinerators)
+
 local function generate_static_collision_boxes()
     local collision_boxes = {}
 
@@ -293,6 +310,7 @@ return {
         ball_launchers =  ball_launchers,
         clocks = clocks,
         security_cameras = security_cameras,
+        incinerators = incinerators,
         turrets = turrets,
     },
     static_collision_boxes = generate_static_collision_boxes(),

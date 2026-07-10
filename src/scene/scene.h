@@ -22,6 +22,7 @@
 #include "elevator.h"
 #include "fizzler.h"
 #include "hud.h"
+#include "incinerator.h"
 #include "pedestal.h"
 #include "portal_gun.h"
 #include "security_camera.h"
@@ -67,6 +68,7 @@ struct Scene {
     struct Clock* clocks;
     struct SecurityCamera* securityCameras;
     struct Turret** turrets;
+    struct Incinerator* incinerators;
     struct SavedPortal savedPortal;
     struct Effects effects;
     struct Hud hud;
@@ -88,6 +90,7 @@ struct Scene {
     u8 clockCount;
     u8 securityCameraCount;
     u8 turretCount;
+    u8 incineratorCount;
 
     u8 continuouslyAttemptingPortalOpen;
     u8 checkpointState;

@@ -129,6 +129,7 @@ target_sources(engine INTERFACE
     scene/elevator.c
     scene/fizzler.c
     scene/hud.c
+    scene/incinerator.c
     scene/laser.c
     scene/pedestal.c
     scene/point_light.c

@@ -96,6 +96,7 @@ static struct LevelDefinition* levelFixPointers(struct LevelDefinition* from, in
     result->clocks = ADJUST_POINTER_POS(result->clocks, pointerOffset);
     result->securityCameras = ADJUST_POINTER_POS(result->securityCameras, pointerOffset);
     result->turrets = ADJUST_POINTER_POS(result->turrets, pointerOffset);
+    result->incinerators = ADJUST_POINTER_POS(result->incinerators, pointerOffset);
 
     result->animations = ADJUST_POINTER_POS(result->animations, pointerOffset);
 

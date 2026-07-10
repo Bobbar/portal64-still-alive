@@ -298,6 +298,12 @@ void sceneInitNoPauseMenu(struct Scene* scene, int mainMenuMode) {
         securityCameraInit(&scene->securityCameras[i], &gCurrentLevel->securityCameras[i]);
     }
 
+    scene->incineratorCount = gCurrentLevel->incineratorCount;
+    scene->incinerators = malloc(sizeof(struct Incinerator) * scene->incineratorCount);
+    for (int i = 0 ; i < scene->incineratorCount; ++i) {
+        incineratorInit(&scene->incinerators[i], &gCurrentLevel->incinerators[i]);
+    }
+
     scene->continuouslyAttemptingPortalOpen = 0;
     scene->checkpointState = SceneCheckpointStateSaved;
     scene->mainMenuMode = mainMenuMode;

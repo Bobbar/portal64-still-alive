@@ -74,4 +74,6 @@ sk_definition_writer.add_definition("level", "struct LevelDefinition", "_geo", {
     securityCameraCount = #entities.entities.security_cameras,
     turrets = sk_definition_writer.reference_to(entities.entities.turrets, 1),
     turretCount = #entities.entities.turrets,
+    incinerators = sk_definition_writer.reference_to(entities.entities.incinerators, 1),
+    incineratorCount = #entities.entities.incinerators,
 })

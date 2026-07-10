@@ -387,6 +387,13 @@ struct TurretDefinition {
     short playerCanAutotip;
 };
 
+struct IncineratorDefinition {
+    struct Vector3 position;
+    struct Quaternion rotation;
+    short roomIndex;
+    short signalIndex;
+};
+
 struct LevelDefinition {
     struct CollisionObject* collisionQuads;
     u16* namedColliderIndices;
@@ -424,6 +431,7 @@ struct LevelDefinition {
     struct ClockDefinition* clocks;
     struct SecurityCameraDefinition* securityCameras;
     struct TurretDefinition* turrets;
+    struct IncineratorDefinition* incinerators;
     short collisionQuadCount;
     short namedColliderCount;
     short staticContentCount;
@@ -450,6 +458,7 @@ struct LevelDefinition {
     short clockCount;
     short securityCameraCount;
     short turretCount;
+    short incineratorCount;
     short startLocation;
     short playerAnimatorIndex;
 };
