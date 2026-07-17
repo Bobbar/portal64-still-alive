@@ -67,6 +67,7 @@ set(TEXTURES
     models/props_animsigns/awe_total
     models/props_animsigns/newsignage_back02
     models/props_bts/fan01
+    models/props_bts/glados_aperturedoor
     models/props_c17/door01a_skin6
     models/props_c17/substation_transformer01b
     models/props_junk/cardboard_boxes001a
@@ -362,6 +363,10 @@ set_property(SOURCE models/props/round_elevator_sheet_3.ims
 set_property(SOURCE models/props/water_bottle/water_bottle.ims
     PROPERTY ADDITIONAL_OUTPUTS
         models/props/water_bottle/water_bottle_label
+)
+set_property(SOURCE models/props_bts/glados_aperturedoor.ims
+    PROPERTY ADDITIONAL_OUTPUTS
+        models/props_bts/glados_aperturedoor_top
 )
 set_property(SOURCE models/props_c17/substation_transformer01b.ims
     PROPERTY ADDITIONAL_OUTPUTS

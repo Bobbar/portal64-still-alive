@@ -69,6 +69,7 @@ set(DYNAMIC_MODELS
     props/turret_01
     props/turret_01_eye
     props/water_bottle/water_bottle
+    props_bts/glados_aperturedoor
     props_junk/metalbucket01a
     signage/clock
     signage/clock_digits
@@ -86,6 +87,7 @@ set(KEYFRAMED_ANIMATED_MODELS
     props/door_02
     props/switch001
     props/turret_01
+    props_bts/glados_aperturedoor
 )
 
 # All animated models, including those which are only procedurally animated

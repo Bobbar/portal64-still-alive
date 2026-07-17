@@ -1,0 +1,11 @@
+-alpha off
+
+\(
+    +clone
+    -crop 40x16+4+116
+    -write portal_pak_modified/materials/models/props_bts/glados_aperturedoor_top.png
+    +delete
+\)
+
+-crop 64x81+38+368
+-resize 32x40

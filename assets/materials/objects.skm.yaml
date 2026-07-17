@@ -398,3 +398,75 @@ materials:
         wrap: false
     gSPGeometryMode:
       set: [G_LIGHTING, G_SHADE, G_CULL_BACK]
+
+  incinerator_body:
+    gDPSetTile:
+      filename: ../../portal_pak_modified/materials/models/props_bts/glados_aperturedoor.png
+      siz: G_IM_SIZ_4b
+      fmt: G_IM_FMT_I
+      twoTone: true
+      s:
+        mirror: true
+      t:
+        wrap: false
+    gSPTexture:
+      tile: 0
+
+    # Override twoTone colors for nicer shading
+    gDPSetPrimColor:
+      r: 54
+      g: 60
+      b: 64
+    gDPSetEnvColor:
+      r: 18
+      g: 19
+      b: 20
+
+    gSPGeometryMode:
+      set: [G_LIGHTING, G_SHADE, G_CULL_BACK]
+
+    gDPSetCycleType: G_CYC_2CYCLE
+    gDPSetCombineMode:
+      - color: [PRIMITIVE, "ENVIRONMENT", TEXEL0, "ENVIRONMENT"]
+        alpha: ["0", "0", "0", "1"]
+      - color: ["COMBINED", "0", "SHADE", "0"]
+        alpha: ["0", "0", "0", "1"]
+    gDPSetRenderMode:
+      - G_RM_PASS
+      - G_RM_ZB_OPA_SURF
+
+  incinerator_top:
+    gDPSetTile:
+      - null
+      - filename: ../../portal_pak_modified/materials/models/props_bts/glados_aperturedoor_top.png
+        fmt: G_IM_FMT_RGBA
+        siz: G_IM_SIZ_32b
+        tmem: 80
+        s:
+          wrap: false
+        t:
+          mirror: true
+    gSPTexture:
+      tile: 1
+
+    gSPGeometryMode:
+      set: [G_LIGHTING, G_SHADE, G_CULL_BACK]
+    gDPSetCombineMode:
+      color: ["SHADE", "0", "TEXEL0", "0"]
+    gDPSetRenderMode: G_RM_ZB_OPA_SURF
+
+  incinerator_interior:
+    gSPGeometryMode:
+      set: [G_SHADE, G_CULL_BACK]
+      clear: [G_LIGHTING]
+    gDPSetCombineMode:
+      color: ["0", "0", "0", SHADE]
+    gDPSetRenderMode: G_RM_ZB_OPA_SURF
+
+  incinerator_blades:
+    gSPGeometryMode:
+      set: [G_SHADE]
+      clear: [G_LIGHTING, G_CULL_BACK]
+    gDPSetCombineMode:
+      color: ["0", "0", "0", SHADE]
+    gDPSetRenderMode: G_RM_ZB_OPA_SURF
