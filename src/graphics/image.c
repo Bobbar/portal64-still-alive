@@ -6,75 +6,79 @@
 #define MAX_TILE_X  64
 #define MAX_TILE_Y  32
 
-void graphicsCopyImage(struct RenderState* state, void* source, int iw, int ih, int sx, int sy, int dx, int dy, int width, int height, struct Coloru8 color) {
+void graphicsCopyImage(
+    struct RenderState* state,
+    void* image,
+    int imageWidth,
+    int imageHeight,
+    int srcX,
+    int srcY,
+    int srcWidth,
+    int srcHeight,
+    int screenX,
+    int screenY,
+    struct Coloru8 color
+) {
     gDPPipeSync(state->dl++);
     gDPSetCycleType(state->dl++, G_CYC_1CYCLE);
     gDPSetRenderMode(state->dl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
-	gDPSetCombineLERP(state->dl++, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0);
+    gDPSetCombineMode(state->dl++, G_CC_MODULATERGBA_PRIM, G_CC_MODULATERGBA_PRIM);
     gDPSetTextureLUT(state->dl++, G_TT_NONE);
     gDPSetTexturePersp(state->dl++, G_TP_NONE);
-    gDPSetEnvColor(state->dl++, color.r, color.g, color.b, color.a);
+    gDPSetPrimColor(state->dl++, 255, 255, color.r, color.g, color.b, color.a);
 
-    if (dy < 0) {
-        height += dy;
-        sy -= dy;
-        dy = 0;
+    if (screenX < 0) {
+        srcWidth += screenX;
+        srcX -= screenX;
+        screenX = 0;
     }
 
-    if (height <= 0) {
+    if (screenY < 0) {
+        srcHeight += screenY;
+        srcY -= screenY;
+        screenY = 0;
+    }
+
+    if (srcWidth <= 0 || srcHeight <= 0) {
         return;
     }
 
-    int tileXCount = (width + MAX_TILE_X-1) / MAX_TILE_X;
-    int tileYCount = (height + MAX_TILE_Y-1) / MAX_TILE_Y;
-    int tileX, tileY;
+    int tileXCount = (srcWidth + MAX_TILE_X - 1) / MAX_TILE_X;
+    int tileYCount = (srcHeight + MAX_TILE_Y - 1) / MAX_TILE_Y;
 
-    for (tileX = 0; tileX < tileXCount; ++tileX) {
+    for (int tileX = 0; tileX < tileXCount; ++tileX) {
         int currX = tileX * MAX_TILE_X;
-        int tileWidth = width - currX;
+        int tileWidth = MIN(srcWidth - currX, MAX_TILE_X);
 
-        if (tileWidth > MAX_TILE_X) {
-            tileWidth = MAX_TILE_X;
-        }
+        int currSrcX = srcX + currX;
+        int currScreenX = screenX + currX;
 
-        int currDx = dx + currX;
-
-        if (currDx >= SCREEN_WD) {
+        if (currScreenX >= SCREEN_WD) {
             break;
+        } else if (currScreenX + tileWidth >= SCREEN_WD) {
+            tileWidth = SCREEN_WD - currScreenX;
         }
 
-        if (currDx + tileWidth < 0) {
-            continue;
-        }
-
-        if (currDx < 0) {
-            tileWidth += currDx;
-            currDx = 0;
-        }
-
-        if (currDx + tileWidth >= SCREEN_WD) {
-            tileWidth = SCREEN_WD - currDx;
-        }
-
-        int scaledY = 0;
-
-        for (tileY = 0; tileY < tileYCount; ++tileY) {
+        for (int tileY = 0; tileY < tileYCount; ++tileY) {
             int currY = tileY * MAX_TILE_Y;
-            int tileHeight = height - currY;
-            
-            if (tileHeight > MAX_TILE_Y) {
-                tileHeight = MAX_TILE_Y;
-            }
+            int tileHeight = MIN(srcHeight - currY, MAX_TILE_Y);
 
-            int scaledTileHeight = tileHeight;//SCALE_FOR_PAL(tileHeight);
+            int currSrcY = srcY + currY;
+            int currScreenY = screenY + currY;
+
+            if (currScreenY >= SCREEN_HT) {
+                break;
+            } else if (currScreenY + tileHeight >= SCREEN_HT) {
+                tileHeight = SCREEN_HT - currScreenY;
+            }
             
             gDPLoadTextureTile(
                 state->dl++,
-                K0_TO_PHYS((char*)source + ((sx + currX) + (sy + currY) * iw) * 2),
+                K0_TO_PHYS(image),
                 G_IM_FMT_RGBA, G_IM_SIZ_16b,
-                iw, ih,
-                0, 0,
-                tileWidth-1, tileHeight-1,
+                imageWidth, imageHeight,
+                currSrcX, currSrcY,
+                currSrcX + tileWidth - 1, currSrcY + tileHeight - 1,
                 0,
                 G_TX_CLAMP, G_TX_CLAMP,
                 G_TX_NOMASK, G_TX_NOMASK,
@@ -83,13 +87,12 @@ void graphicsCopyImage(struct RenderState* state, void* source, int iw, int ih, 
             
             gSPTextureRectangle(
                 state->dl++,
-                (currDx) << 2, (dy+scaledY) << 2,
-                (currDx+tileWidth) << 2, (dy+scaledY+scaledTileHeight) << 2,
+                currScreenX << 2, currScreenY << 2,
+                (currScreenX + tileWidth) << 2, (currScreenY + tileHeight) << 2,
                 G_TX_RENDERTILE, 
-                0, 0, 1 << 10, (tileHeight << 10) / scaledTileHeight
+                currSrcX << 5, currSrcY << 5,
+                1 << 10, 1 << 10
             );
-
-            scaledY += scaledTileHeight;
         }
     }
 

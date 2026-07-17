@@ -477,6 +477,9 @@
                         "selectChannel": {
                             "enum": ["r", "g", "b"]
                         },
+                        "preSwapTexels": {
+                            "type": "boolean"
+                        },
                         "usePalette": {
                             "type": "string"
                         },

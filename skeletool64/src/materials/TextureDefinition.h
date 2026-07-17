@@ -58,12 +58,13 @@ struct PixelIAu8 {
 };
 
 enum class TextureDefinitionEffect {
-    TwoToneGrayscale = (1 << 0),
-    NormalMap = (1 << 1),
-    Invert = (1 << 2),
-    SelectR = (1 << 3),
-    SelectG = (1 << 4),
-    SelectB = (1 << 5),
+    TwoToneGrayscale    = (1 << 0),
+    NormalMap           = (1 << 1),
+    Invert              = (1 << 2),
+    SelectR             = (1 << 3),
+    SelectG             = (1 << 4),
+    SelectB             = (1 << 5),
+    PreSwapTexels       = (1 << 6),
 };
 
 class PaletteDefinition {
@@ -77,7 +78,6 @@ public:
     const std::string& Name() const;
 
     int LoadBlockSize() const;
-    int DTX() const;
     int NBytes() const;
     unsigned ColorCount() const;
 private:
@@ -104,7 +104,7 @@ public:
     bool GetLine(int& line) const;
     bool GetLineForTile(int& line) const;
     int LoadBlockSize() const;
-    int DTX() const;
+    int DXT() const;
     int NBytes() const;
 
     const std::vector<unsigned long long>& GetData() const;

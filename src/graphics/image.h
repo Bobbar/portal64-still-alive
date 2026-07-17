@@ -4,6 +4,18 @@
 #include "renderstate.h"
 #include "../graphics/color.h"
 
-void graphicsCopyImage(struct RenderState* state, void* source, int iw, int ih, int sx, int sy, int dx, int dy, int width, int height, struct Coloru8 color);
+void graphicsCopyImage(
+    struct RenderState* state,
+    void* image,
+    int imageWidth,
+    int imageHeight,
+    int srcX,
+    int srcY,
+    int srcWidth,
+    int srcHeight,
+    int screenX,
+    int screenY,
+    struct Coloru8 color
+);
 
 #endif

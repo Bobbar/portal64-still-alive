@@ -396,6 +396,20 @@ void selectChannel(cimg_library::CImg<unsigned char>& input, TextureDefinitionEf
     }
 }
 
+int getTexelSwapMask(G_IM_SIZ siz) {
+    switch (siz) {
+        case G_IM_SIZ::G_IM_SIZ_4b:
+            return 8;
+        case G_IM_SIZ::G_IM_SIZ_8b:
+            return 4;
+        case G_IM_SIZ::G_IM_SIZ_16b:
+        case G_IM_SIZ::G_IM_SIZ_32b:
+            return 2;
+        default:
+            return 0;
+    }
+}
+
 PaletteDefinition::PaletteDefinition(const std::string& filename):
     mName(getBaseName(replaceExtension(filename, "")) + "_tlut") {
     cimg_library::CImg<unsigned char> imageData(filename.c_str());
@@ -469,17 +483,6 @@ int PaletteDefinition::LoadBlockSize() const {
     return mColors.size() - 1;
 }
 
-#define	G_TX_DTX_FRAC	11
-
-int PaletteDefinition::DTX() const {
-    int lineSize = mColors.size() / 4;
-
-    if (!lineSize) {
-        lineSize = 1;
-    }
-    return ((1 << G_TX_DTX_FRAC) + lineSize - 1) / lineSize;
-}
-
 int PaletteDefinition::NBytes() const {
     return mColors.size() * 2;
 }
@@ -527,8 +530,16 @@ TextureDefinition::TextureDefinition(
 
     if (HasEffect(TextureDefinitionEffect::SelectR) || 
         HasEffect(TextureDefinitionEffect::SelectG) || 
-        HasEffect(TextureDefinitionEffect::SelectB)) {
+        HasEffect(TextureDefinitionEffect::SelectB)
+    ) {
         selectChannel(mImg->mImg, mEffects);
+    }
+
+    int texelSwapMask = 0;
+    if (HasEffect(TextureDefinitionEffect::PreSwapTexels)) {
+        // Pre-swap texels so the RDP doesn't have to do it, which avoids
+        // DXT counter imprecision artifacts for some texture sizes
+        texelSwapMask = getTexelSwapMask(siz);
     }
 
     mWidth = mImg->mImg.width();
@@ -538,7 +549,12 @@ TextureDefinition::TextureDefinition(
 
     for (int y = 0; y < mHeight; ++y) {
         for (int x = 0; x < mWidth; ++x) {
-            convertPixel(mImg->mImg, x, y, dataStream, fmt, siz, palette);
+            int readX = x;
+            if (texelSwapMask && (y & 1)) {
+                readX ^= texelSwapMask;
+            }
+
+            convertPixel(mImg->mImg, readX, y, dataStream, fmt, siz, palette);
         }
     }
 
@@ -667,7 +683,7 @@ int TextureDefinition::LoadBlockSize() const {
     return ((Height() * Width() + gSizeInc[(int)mSiz]) >> gSizeShift[(int)mSiz]) - 1;
 }
 
-int TextureDefinition::DTX() const {
+int TextureDefinition::DXT() const {
     int lineSize;
 
     if (mSiz == G_IM_SIZ::G_IM_SIZ_4b) {
@@ -675,10 +691,12 @@ int TextureDefinition::DTX() const {
     } else {
         GetLine(lineSize);
     }
+
     if (!lineSize) {
         lineSize = 1;
     }
-    return ((1 << G_TX_DTX_FRAC) + lineSize - 1) / lineSize;
+
+    return ((1 << 11) + lineSize - 1) / lineSize;
 }
 
 int TextureDefinition::NBytes() const {

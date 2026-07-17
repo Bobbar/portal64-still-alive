@@ -279,7 +279,7 @@ static void hudRenderOverlay(struct Hud* hud, struct Player* player, struct Rend
 
         if (alpha >= 0.0f) {
             gSPDisplayList(renderState->dl++, hud_overlay);
-            gDPSetPrimColor(renderState->dl++, 0, 0, hud->overlayColor.r, hud->overlayColor.g, hud->overlayColor.b, (u8)(255.0f * alpha));
+            gDPSetPrimColor(renderState->dl++, 255, 255, hud->overlayColor.r, hud->overlayColor.g, hud->overlayColor.b, (u8)(255.0f * alpha));
             gDPFillRectangle(renderState->dl++, 0, 0, SCREEN_WD, SCREEN_HT);
             gSPDisplayList(renderState->dl++, hud_overlay_revert);
         }

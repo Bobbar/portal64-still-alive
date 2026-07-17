@@ -43,7 +43,7 @@ static void chapterMenuItemInit(struct ChapterMenuItem* chapterMenuItem, int x, 
     chapterMenuItem->border = menuBuildSolidBorder(
         x, y + 27,
         92, 58,
-        x + 5, y + 32,
+        x + 4, y + 32,
         CHAPTER_IMAGE_WIDTH, CHAPTER_IMAGE_HEIGHT
     );
 
@@ -78,7 +78,7 @@ static void chapterMenuItemSetChapter(struct ChapterMenuItem* chapterMenuItem, i
     Gfx* gfx = menuRerenderSolidBorder(
         x, y + 4,
         92, 58,
-        x + 5, y + 9,
+        x + 4, y + 9,
         CHAPTER_IMAGE_WIDTH, CHAPTER_IMAGE_HEIGHT,
         chapterMenuItem->border
     );
@@ -251,22 +251,22 @@ void newGameRender(struct NewGameMenu* newGameMenu, struct RenderState* renderSt
 
     graphicsCopyImage(
         renderState, newGameMenu->leftChapter.imageBuffer,
-        84, 48,
+        CHAPTER_IMAGE_WIDTH, CHAPTER_IMAGE_HEIGHT,
         0, 0,
-        newGameMenu->leftChapter.x + 5,
+        CHAPTER_IMAGE_WIDTH, CHAPTER_IMAGE_HEIGHT,
+        newGameMenu->leftChapter.x + 4,
         newGameMenu->leftChapter.testChamberText->y + newGameMenu->leftChapter.testChamberText->height + 9,
-        84, 48,
         gColorWhite
     );
 
     if (showRightChapter) {
         graphicsCopyImage(
             renderState, newGameMenu->rightChapter.imageBuffer,
-            84, 48,
+            CHAPTER_IMAGE_WIDTH, CHAPTER_IMAGE_HEIGHT,
             0, 0,
-            newGameMenu->rightChapter.x + 5,
+            CHAPTER_IMAGE_WIDTH, CHAPTER_IMAGE_HEIGHT,
+            newGameMenu->rightChapter.x + 4,
             newGameMenu->rightChapter.testChamberText->y + newGameMenu->rightChapter.testChamberText->height + 9,
-            84, 48,
             gColorWhite
         );
     }

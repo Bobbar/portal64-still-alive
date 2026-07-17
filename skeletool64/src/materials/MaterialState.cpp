@@ -501,7 +501,7 @@ void generateTile(CFileDefinition& fileDef, const MaterialState& from, const Til
         loadBlock->AddPrimitive(0);
         loadBlock->AddPrimitive(0);
         loadBlock->AddPrimitive(to.texture->LoadBlockSize());
-        loadBlock->AddPrimitive(to.texture->DTX());
+        loadBlock->AddPrimitive(to.texture->HasEffect(TextureDefinitionEffect::PreSwapTexels) ? 0 : to.texture->DXT());
         output.Add(std::move(loadBlock));
 
         output.Add(std::unique_ptr<MacroDataChunk>(new MacroDataChunk("gsDPPipeSync")));

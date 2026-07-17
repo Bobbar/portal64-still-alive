@@ -3,36 +3,48 @@ materials:
   chapter1:
     gDPSetTile: 
       filename: "../../portal_pak_modified/materials/vgui/chapters/chapter1.png"
+      preSwapTexels: false
   chapter2:
     gDPSetTile: 
       filename: "../../portal_pak_modified/materials/vgui/chapters/chapter2.png"
+      preSwapTexels: false
   chapter3:
     gDPSetTile: 
       filename: "../../portal_pak_modified/materials/vgui/chapters/chapter3.png"
+      preSwapTexels: false
   chapter4:
     gDPSetTile: 
       filename: "../../portal_pak_modified/materials/vgui/chapters/chapter4.png"
+      preSwapTexels: false
   chapter5:
     gDPSetTile: 
       filename: "../../portal_pak_modified/materials/vgui/chapters/chapter5.png"
+      preSwapTexels: false
   chapter6:
     gDPSetTile: 
       filename: "../../portal_pak_modified/materials/vgui/chapters/chapter6.png"
+      preSwapTexels: false
   chapter7:
     gDPSetTile: 
       filename: "../../portal_pak_modified/materials/vgui/chapters/chapter7.png"
+      preSwapTexels: false
   chapter8:
     gDPSetTile: 
       filename: "../../portal_pak_modified/materials/vgui/chapters/chapter8.png"
+      preSwapTexels: false
   chapter9:
     gDPSetTile: 
       filename: "../../portal_pak_modified/materials/vgui/chapters/chapter9.png"
+      preSwapTexels: false
   chapter10:
     gDPSetTile: 
       filename: "../../portal_pak_modified/materials/vgui/chapters/chapter10.png"
+      preSwapTexels: false
   chapter11:
     gDPSetTile: 
       filename: "../../portal_pak_modified/materials/vgui/chapters/chapter11.png"
+      preSwapTexels: false
   valve:
     gDPSetTile:
       filename: "../../portal_pak_modified/materials/gamepadui/valve.png"
+      preSwapTexels: false

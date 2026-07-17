@@ -61,12 +61,12 @@ void introRender(void* data, struct RenderState* renderState, struct GraphicsTas
     gDPPipeSync(renderState->dl++);
     gDPSetCycleType(renderState->dl++, G_CYC_1CYCLE); 
     graphicsCopyImage(
-        renderState, 
-        intro->valveImage, 
-        VALVE_IMAGE_WIDTH, VALVE_IMAGE_HEIGHT, 
-        0, 0, 
+        renderState,
+        intro->valveImage,
+        VALVE_IMAGE_WIDTH, VALVE_IMAGE_HEIGHT,
+        0, 0,
+        VALVE_IMAGE_WIDTH, VALVE_IMAGE_HEIGHT,
         (SCREEN_WD - VALVE_IMAGE_WIDTH) / 2, (SCREEN_HT - VALVE_IMAGE_HEIGHT) / 2, 
-        VALVE_IMAGE_WIDTH, VALVE_IMAGE_HEIGHT, 
         fadeColor
     );
 }

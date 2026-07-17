@@ -300,6 +300,11 @@ std::shared_ptr<TextureDefinition> parseTextureDefinition(const YAML::Node& node
             }
         }
 
+        auto preSwapTexels = node["preSwapTexels"];
+        if (!preSwapTexels.IsDefined() || preSwapTexels.as<bool>()) {
+            effects = (TextureDefinitionEffect)((int)effects | (int)TextureDefinitionEffect::PreSwapTexels);
+        }
+
         auto usePalette = node["usePalette"];
 
         if (usePalette.IsDefined()) {
